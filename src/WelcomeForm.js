@@ -27,6 +27,7 @@ import doctorImage from './images/doctor.png';
 
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import faq from './FAQ';
+import SmartEntryForm from './SmartEntryForm';
 
 
 function Copyright() {
@@ -268,90 +269,7 @@ const getStartedClicked = (event) => {
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-         
-          {state.firstname && state.firstname.length > 0 && (
-            <div style={{textAlign:'center', fontSize:"1rem", marginBottom:"10px", color:"#777",backgroundColor:"#f7fbff",padding:"20px"}}>
-                Welcome back <span style={{fontWeight:"500", color:"#333", fontStyle:"italic"}}>{state.firstname}</span>
-            </div>
-          )}
-
-          <Typography
-            style={{ fontWeight: 700, marginBottom: "50px" }}
-            component="h1"
-            variant="h6"
-            align="center"
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-
-              <img
-                className={classes.doctorImage}
-                src={doctorImage}
-                alt="doctor image"
-              />
-              
-              <span className={classes.pageTitle}> 
-                  Private GP in London - £150
-              </span>
-            </div>
-          </Typography>
-
-          <p
-            className={
-              isMobile ? classes.textContentMobile : classes.textContent
-            }
-          >
-            -&nbsp; Flexible appointment for private GP services whenever you need.
-          </p>
-
-          <p
-            className={
-              isMobile ? classes.textContentMobile : classes.textContent
-            }
-          >
-            -&nbsp; Highly Experienced Doctors.
-          </p>
-
-          <p
-            className={
-              isMobile ? classes.textContentMobile : classes.textContent
-            }
-          >
-             -&nbsp; We are open seven days a week.
-          </p>
-
-          <p
-            className={
-              isMobile ? classes.textContentMobile : classes.textContent
-            }
-          >
-             -&nbsp; No card details or payment necessary.
-          </p>
-
-          <p
-            className={
-              isMobile ? classes.textContentMobile : classes.textContent
-            }
-          >
-             -&nbsp; Plans change and you may need to cancel or rearrange your
-            appointment. We take payment for your visit only when you attend the
-            clinic.
-          </p>
-
-          <Button
-            variant="contained"
-            className={classes.getStartedButton}
-            color="primary"
-            onClick={getStartedClicked}
-            onTouchTap={getStartedClicked}
-          >
-            Get Started
-          </Button>
+          <SmartEntryForm/>
         </Paper>
 
         <Button
