@@ -11,7 +11,7 @@ import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 
 
 function App() {
-  const [state, setState] = React.useState({});
+  const [state, setState] = React.useState({activeStep : 0});
 
   useEffect(() => {
     loadParametersFromUrl()

@@ -65,7 +65,7 @@ export default function CategoriesForm() {
   }, []);
 
   const catClicked = (key, text) => {
-    setState(state => ({...state, cat: {key: key, text: text}}))
+    setState(state => ({...state, cat: {key: key, text: text}, activeStep: 1}))
   }
 
   return (
