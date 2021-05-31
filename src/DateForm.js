@@ -145,11 +145,17 @@ export default function DateForm() {
        return true  
 
     const today = new Date()
-    const twoDaysAfter = new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000)
+    // const twoDaysAfter = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000)
    
-    if (date.getTime() < twoDaysAfter.getTime())
+    // if (date.getTime() < twoDaysAfter.getTime())
+    // {
+    //   return true
+    // }
+
+
+    if (dateformat(date,'yyyy-mm-dd') === dateformat(today,'yyyy-mm-dd'))
     {
-      return true
+       return true;
     }
 
 

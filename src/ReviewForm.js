@@ -219,21 +219,21 @@ export default function ReviewForm() {
         Review Your Data
       </Typography>
 
-      {/* <Fade down>
-      <div>
-        <Alert
-          severity="info"
-          style={{
-            marginBottom: "15px",
-            fontSize: "0.95rem",
-            lineHeight: "1.5rem",
-            textAlign: "justify",
-          }}
-        >
-          You can always change or cancel your appointment up-to 24 hours to your appointment with ease through your patient portal
+      <Fade down>
+        <div>
+          <Alert
+            severity="info"
+            style={{
+              marginBottom: "15px",
+              fontSize: "0.95rem",
+              lineHeight: "1.5rem",
+              textAlign: "justify",
+            }}
+          >
+            The <b>Date and Time</b> you have selected is <b>not guaranteed</b>, and might need to be re-arranged. We will review your request and arrange the neccessary actions. We will get back to you soon (via email or sms/phone call) to confirm the appointment.
         </Alert>
-      </div>
-      </Fade> */}
+        </div>
+      </Fade>
 
 
       <Grid
