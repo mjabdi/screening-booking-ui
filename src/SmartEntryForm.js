@@ -20,6 +20,7 @@ import DateForm from './DateForm';
 import TimeForm from './TimeForm';
 import InformationForm from './InformationForm';
 import ReviewForm from './ReviewForm';
+import ChooseCountryForm from './ChooseCountryForm';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -82,7 +83,22 @@ export default function SmartEntryForm() {
       else if (_state.activeStep === 5) {
         return <ReviewForm/>
       }
-    }else {
+    }else if (_state.cat.key === "visa") {
+      if (_state.activeStep === 1) {
+        return <ChooseCountryForm />
+      }else if (_state.activeStep === 2) {
+        return <DateForm/>
+      }else if (_state.activeStep === 3) {
+        return <TimeForm/>
+      }
+      else if (_state.activeStep === 4) {
+        return <InformationForm/>
+      }
+      else if (_state.activeStep === 5) {
+        return <ReviewForm/>
+      }
+    }    
+    else {
       if (_state.activeStep === 1) {
         return <DateForm/>
       }else if (_state.activeStep === 2) {

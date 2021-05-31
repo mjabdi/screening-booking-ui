@@ -212,6 +212,23 @@ export default function ReviewForm() {
     }
   };
 
+
+  const getPackageName = () => {
+
+    if (state.cat.key === "visa")
+    {
+      let destination = state.destination
+      if (destination === "Other...")
+      {
+        destination = state.destinationText
+      }
+      return `${state.cat.text.toUpperCase()} ${` ( ${destination.toUpperCase()} )`}`
+    }else
+    {
+      return `${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`
+    }
+  }
+
   
   return (
     <React.Fragment>
@@ -297,7 +314,7 @@ export default function ReviewForm() {
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData} style={{fontWeight:"600"}}> {`${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`} </span>
+                    <span className={classes.infoData} style={{fontWeight:"600"}}> {getPackageName()} </span>
                   </li>
                   {state.package && (
                       <li className={classes.li}>
