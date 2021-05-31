@@ -68,12 +68,31 @@ export default function SmartEntryForm() {
       else if (_state.activeStep === 6) {
         return <ReviewForm/>
       }
-
-
-
     } else if (_state.cat.key === "allergy") {
       if (_state.activeStep === 1) {
         return <ScreenPackagesForm />
+      }else if (_state.activeStep === 2) {
+        return <DateForm/>
+      }else if (_state.activeStep === 3) {
+        return <TimeForm/>
+      }
+      else if (_state.activeStep === 4) {
+        return <InformationForm/>
+      }
+      else if (_state.activeStep === 5) {
+        return <ReviewForm/>
+      }
+    }else {
+      if (_state.activeStep === 1) {
+        return <DateForm/>
+      }else if (_state.activeStep === 2) {
+        return <TimeForm/>
+      }
+      else if (_state.activeStep === 3) {
+        return <InformationForm/>
+      }
+      else if (_state.activeStep === 4) {
+        return <ReviewForm/>
       }
     }
 

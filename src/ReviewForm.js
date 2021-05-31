@@ -297,9 +297,10 @@ export default function ReviewForm() {
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData} style={{fontWeight:"600"}}> {`${state.cat.text.toUpperCase()} / ${state.package.text.toUpperCase()}`} </span>
+                    <span className={classes.infoData} style={{fontWeight:"600"}}> {`${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`} </span>
                   </li>
-                  <li className={classes.li}>
+                  {state.package && (
+                      <li className={classes.li}>
                       <span className={classes.infoTitleTime}>
                         <FontAwesomeIcon
                           icon={faPoundSign}
@@ -309,6 +310,7 @@ export default function ReviewForm() {
                       </span>
                       <span className={classes.infoDataPrice}> £{state.package.price || '-'} </span>
                     </li>
+                  )}
 
                 </ul>
               </div>
