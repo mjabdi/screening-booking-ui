@@ -38,42 +38,66 @@ const useStyles = makeStyles((theme) => ({
 
       box: {
         //backgroundColor: "red",
-        border: "1px solid #999",
         margin: "5px",
-        padding: "5px",
-        color: "#555",
+        padding: "10px 5px",
         cursor: "pointer",
+        color: "#fff",
+        border: "1px solid #eee",
+        borderRadius: "8px",
+        fontWeight: "500",
+    
+        background: "linear-gradient(90deg, rgba(0,95,147,1) 33%, rgba(6,117,179,1) 63%, rgba(32,150,218,1) 100%)",
+    
         "&:hover": {
-            background: theme.palette.primary.light,
-            // color: "#fff"
-          },
+            background: "linear-gradient(90deg, rgba(179,68,1,1) 30%, rgba(232,82,25,1) 74%, rgba(231,109,62,1) 100%)",
+        },
       },
 
       boxMobile: {
         //backgroundColor: "red",
-        border: "1px solid #999",
-        margin: "5px",
-        padding: "5px",
-        color: "#555",
+        color: "#fff",
+        border: "1px solid #eee",
+        borderRadius: "8px",
+        fontWeight: "500",
+        padding: "10px 5px",
+
+    
+        background: "linear-gradient(90deg, rgba(0,95,147,1) 33%, rgba(6,117,179,1) 63%, rgba(32,150,218,1) 100%)",
         cursor: "pointer"
       },
 
       boxSelected: {
-        backgroundColor: theme.palette.primary.main,
-        border: `1px solid ${theme.palette.primary.main}`,
         margin: "5px",
-        padding: "5px",
-        color: "#fff",
+        padding: "10px 5px",
         cursor: "pointer",
+        color: "#fff",
+        border: "1px solid #eee",
+        borderRadius: "8px",
+        fontWeight: "500",
+    
+        background: "linear-gradient(90deg, rgba(179,68,1,1) 30%, rgba(232,82,25,1) 74%, rgba(231,109,62,1) 100%)",
       },
+
+      boxSelectedMobile: {
+        padding: "10px 5px",
+        cursor: "pointer",
+        color: "#fff",
+        border: "1px solid #eee",
+        borderRadius: "8px",
+        fontWeight: "500",
+    
+        background: "linear-gradient(90deg, rgba(179,68,1,1) 30%, rgba(232,82,25,1) 74%, rgba(231,109,62,1) 100%)",
+      },
+
 
       boxDisable: {
         backgroundColor: "#999",
         border: "1px solid #ddd",
         margin: "5px",
-        padding: "5px",
+        padding: "10px 5px",
         color: "#ddd",
-        cursor: "not-allowed"
+        cursor: "not-allowed",
+        borderRadius: "8px",
         
       },
 
@@ -111,7 +135,13 @@ export default function TimeForm() {
 
     useEffect(() => {
       window.scrollTo(0, 0)
+      setState(state => ({...state, showNext: state.bookingTime ? true : false}))
     }, []);
+
+    useEffect(() => {
+      setState(state => ({...state, showNext: state.bookingTime ? true : false}))
+   }, [state.bookingTime ]);
+
 
     const LoadData = (date) => {
 
@@ -190,7 +220,7 @@ export default function TimeForm() {
         if (key)
         {
             setTime(key);
-            setState({...state, bookingTime : key});
+            setState({...state, bookingTime : key, activeStep: state.activeStep + 1});
         }
 
     }
@@ -221,7 +251,6 @@ export default function TimeForm() {
                   <div style={{fontSize:"1.2rem", paddingTop:"10px", paddingBottom:"10px", color:"#db0000" , fontWeight: "500", background:"#fff5f5"}}>
                      Sorry this day is already fully booked! 
                      <br/>Please choose an alternative day.
-                     <br/> * All dates are fully booked until 1st February 2021. 
                   </div>
                    
                 </React.Fragment>
@@ -253,7 +282,7 @@ export default function TimeForm() {
                                 <GridListTile key={timeSlot.time} cols={1}>
                                   <div 
                                       onClick = {() => {timeSlot.available? boxClicked(timeSlot.time) : boxClicked(null)}}
-                                      className={(timeSlot.available) ? ((bookingTime === timeSlot.time)? classes.boxSelected : classes.boxMobile ): classes.boxDisable}>
+                                      className={(timeSlot.available) ? ((bookingTime === timeSlot.time)? classes.boxSelectedMobile : classes.boxMobile ): classes.boxDisable}>
                                       {timeSlot.time}
                                   </div>
                                 </GridListTile>

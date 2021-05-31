@@ -96,6 +96,7 @@ export default function ScreenPackagesForm() {
     console.log(state)
     console.log(_packages)
     setPackages([..._packages])
+    setState(state => ({...state, showNext: state.package ? true : false}))
   }, []);
 
   const loadPackages = () => {

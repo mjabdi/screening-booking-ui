@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import GlobalState from "./GlobalState";
 import * as EmailValidator from "email-validator";
 
+
 import {
   DatePicker,
   KeyboardDatePicker,
@@ -92,7 +93,16 @@ export default function InformationForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const isValid = validateForm()
+    setState(state => ({...state, showNext: isValid ? true : false}))
+
   }, []);
+
+  useEffect(() => {
+    const isValid = validateForm()
+    setState(state => ({...state, showNext: isValid ? true : false}))
+  }, [fullname, phone, email, retypeEmail]);
+
 
   const emailConfirmedChanged = (event) => {
     setEmailConfirmed(event.target.checked);
@@ -132,6 +142,37 @@ export default function InformationForm() {
     }
   };
 
+
+  const validateForm = () =>
+  {
+    let error = false
+
+    if (!state.fullname || state.fullname.trim().length < 1)
+    {
+      setState(state => ({...state, fullnameError : true}));
+      error = true;
+    }
+    if (!state.email || !EmailValidator.validate(state.email))
+    {
+      setState(state => ({...state, emailError : true}));
+      error = true;
+    }
+
+    if (!state.retypeEmail || !EmailValidator.validate(state.retypeEmail) || state.email !== state.retypeEmail)
+    {
+      setState(state => ({...state, retypeEmailError : true}));
+      error = true;
+    }
+
+    if (!state.phone || state.phone.trim().length < 1)
+    {
+      setState(state => ({...state, phoneError : true}));
+      error = true;
+    }
+  
+    return !error;   
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom className={classes.pageTitle}>
@@ -140,7 +181,7 @@ export default function InformationForm() {
 
       <Grid
         container
-        spacing={4}
+        spacing={2}
         alignItems="baseline"
         style={{ marginTop: "10px" }}
       >

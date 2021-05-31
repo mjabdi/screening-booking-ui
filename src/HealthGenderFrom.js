@@ -72,7 +72,11 @@ export default function HealthGenderForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    
+    setState(state => ({...state, showNext: state.age && state.gender ? true : false}))
   }, []);
+
+
 
   
   const genderClicked = (gender) =>

@@ -17,7 +17,8 @@ import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 
-import { format, addMinutes } from 'date-fns';
+import { format, addMinutes, isWeekend, getDay } from 'date-fns';
+
 
 import { enGB, } from 'date-fns/locale'
 
@@ -75,7 +76,14 @@ export default function DateForm() {
 
     useEffect(() => {
       window.scrollTo(0, 0)
+      setState(state => ({...state, showNext: state.bookingDate ? true : false}))
     }, []);
+
+    useEffect(() => {
+       setState(state => ({...state, showNext: state.bookingDate ? true : false}))
+    }, [state.bookingDate ]);
+
+
 
     const LoadData = () => {
 
@@ -133,6 +141,19 @@ export default function DateForm() {
   {
     var result = false;
 
+    if (getDay(date) === 0 || getDay(date) === 6)
+       return true  
+
+    const today = new Date()
+    const twoDaysAfter = new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000)
+   
+    if (date.getTime() < twoDaysAfter.getTime())
+    {
+      return true
+    }
+
+
+
     if (dateformat(date,'yyyy-mm-dd') < dateformat(firstAvailableDay,'yyyy-mm-dd'))
     {
        return true;
@@ -160,9 +181,9 @@ export default function DateForm() {
 
     <React.Fragment>
                
-                <Typography variant="h6" gutterBottom className={classes.title}>
-                    Pick a Date
-                </Typography>
+        <Typography variant="h5" gutterBottom className={classes.title}>
+            Pick a Date
+        </Typography>
 
         {(dataLoaded && firstAvailableDay) ?  (
             

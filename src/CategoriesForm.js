@@ -64,6 +64,10 @@ export default function CategoriesForm() {
     window.scrollTo(0, 0)
   }, []);
 
+  useEffect(() => {
+    setState(state => ({...state, package: null}))
+  }, [state.cat]);
+
   const catClicked = (key, text) => {
     setState(state => ({...state, cat: {key: key, text: text}, activeStep: state.activeStep + 1}))
   }

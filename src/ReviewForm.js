@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: "10px",
     fontSize: "1.2rem",
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     float: "left",
   },
 
@@ -127,13 +127,15 @@ const useStyles = makeStyles((theme) => ({
   },
 
   infoData: {
-    fontWeight: "400",
+    fontWeight: "600",
+    color: theme.palette.primary.main
   },
 
   infoTitleTime: {
     fontWeight: "800",
     float: "left",
     marginRight: "10px",
+    color: "#666"
   },
 
   infoDataTime: {
@@ -177,8 +179,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   infoDataPrice: {
-    color: theme.palette.secondary.main,
-    fontWeight: "600",
+    // color: theme.palette.primary.main,
+    fontWeight: "700",
+    fontSize:"1rem"
   },
 }));
 
@@ -193,6 +196,13 @@ export default function ReviewForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    setState(state => ({...state, lastStep : true}))
+
+    return () => {
+      setState(state => ({...state, lastStep : false}))
+    }
+
   }, []);
 
   const dataConfirmedChanged = (event) => {
@@ -209,7 +219,7 @@ export default function ReviewForm() {
         Review Your Data
       </Typography>
 
-      <Fade down>
+      {/* <Fade down>
       <div>
         <Alert
           severity="info"
@@ -223,7 +233,7 @@ export default function ReviewForm() {
           You can always change or cancel your appointment up-to 24 hours to your appointment with ease through your patient portal
         </Alert>
       </div>
-      </Fade>
+      </Fade> */}
 
 
       <Grid
@@ -276,7 +286,7 @@ export default function ReviewForm() {
                       />
                       Check-up Duration:
                     </span>
-                    Up-to 30 minutes
+                    Up-to 60 minutes
                   </li>
 
                   <li className={classes.li}>
@@ -287,8 +297,19 @@ export default function ReviewForm() {
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData}> {"Private GP"} </span>
+                    <span className={classes.infoData} style={{fontWeight:"600"}}> {`${state.cat.text.toUpperCase()} / ${state.package.text.toUpperCase()}`} </span>
                   </li>
+                  <li className={classes.li}>
+                      <span className={classes.infoTitleTime}>
+                        <FontAwesomeIcon
+                          icon={faPoundSign}
+                          className={classes.icon}
+                        />
+                        Price:
+                      </span>
+                      <span className={classes.infoDataPrice}> £{state.package.price || '-'} </span>
+                    </li>
+
                 </ul>
               </div>
             </Grid>
@@ -317,7 +338,7 @@ export default function ReviewForm() {
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>
-                    <span className={classes.infoData}> {state.notes} </span>
+                    <span className={classes.infoData} style={{color:"#777"}}> {state.notes || '-'} </span>
                   </li>
                 </ul>
               </div>
