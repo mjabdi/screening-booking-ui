@@ -35,7 +35,37 @@ function App() {
     }
 
     console.log(map)
-    setState(state => ({...state, parametersMap : map, urlRead: true}))
+
+    setState(state => ({...state,
+                         parametersMap : map, 
+                         urlRead: true,
+                         cat: {key: map.get("cat")} ,
+                         age: map.get("age"),
+                         gender: map.get("gender"),
+                         packageUrl: map.get("package"),
+                         activeStep: calculateActiveStep(map.get("cat"),map.get("age"),map.get("gender")) 
+                      }))
+ }
+
+ const calculateActiveStep = (cat, age, gender, packageUrl) =>
+ {
+   if (!packageUrl)
+   {
+      if (cat === "health")
+      {
+        if (age && gender)
+        {
+          return 2
+        }else {
+          return 1
+        }
+      }else if (cat === "allergy")
+      {
+        return 1
+      } 
+   }
+
+   return 0
  }
 
   return (

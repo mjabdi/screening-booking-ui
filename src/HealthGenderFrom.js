@@ -113,7 +113,7 @@ export default function HealthGenderForm() {
                    </div>
                  </Grid>
                  <Grid item>
-                        <div className={state.gender === "Man" ? classes.catBoxSelected :classes.catBox}  onClick={() => genderClicked("Man")}>
+                        <div className={state.gender === "men" ? classes.catBoxSelected :classes.catBox}  onClick={() => genderClicked("men")}>
                           <Grid container spacing={1} alignItems="center" justify="center" style={{height:"70px"}}>
                             <Grid item>
                                <img className={classes.manImage} src="https://www.healthscreening.clinic/public/design/images/men-icon.png"/>
@@ -125,7 +125,7 @@ export default function HealthGenderForm() {
                         </div>
                  </Grid>
                  <Grid item>
-                       <div className={state.gender === "Woman" ? classes.catBoxSelected :classes.catBox} onClick={() => genderClicked("Woman")}>
+                       <div className={state.gender === "women" ? classes.catBoxSelected :classes.catBox} onClick={() => genderClicked("women")}>
                           <Grid container spacing={1} alignItems="center" justify="center" style={{height:"70px"}}>
                             <Grid item>
                                <img className={classes.manImage} src="https://www.healthscreening.clinic/public/design/images/women-icon.png"/>
@@ -147,7 +147,7 @@ export default function HealthGenderForm() {
                    </div>
                  </Grid>
                  <Grid item>
-                        <div className={state.age === "Under 40" ? classes.catBoxSelected : classes.catBox} onClick={() => ageClicked("Under 40")}>
+                        <div className={state.age === "under40" ? classes.catBoxSelected : classes.catBox} onClick={() => ageClicked("under40")}>
                           <Grid container spacing={1} alignItems="center" justify="center" style={{height:"70px"}}>
                             <Grid item>
                                Under 40
@@ -156,7 +156,7 @@ export default function HealthGenderForm() {
                         </div>
                  </Grid>
                  <Grid item>
-                 <div className={state.age === "Over 40" ? classes.catBoxSelected : classes.catBox} onClick={() => ageClicked("Over 40")}>
+                 <div className={state.age === "over40" ? classes.catBoxSelected : classes.catBox} onClick={() => ageClicked("over40")}>
                           <Grid container spacing={1} alignItems="center" justify="center" style={{height:"70px"}}>
                             <Grid item>
                                Over 40
