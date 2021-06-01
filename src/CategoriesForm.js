@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import GlobalState from './GlobalState';
 
 import { Grid } from '@material-ui/core';
+
+import {categories} from './ScreeningPackageLoader'
+
 const useStyles = makeStyles((theme) => ({
 
   catBox: {
@@ -51,14 +54,6 @@ export default function CategoriesForm() {
   const [state, setState] = React.useContext(GlobalState);
   const classes = useStyles();
 
-  const categories = [
-    { key: "health", text: "HEALTH SCREEENING" },
-    { key: "occupational", text: "OCCUPATIONAL HEALTH / PRE EMPLOYMENT" },
-    { key: "travel", text: "TRAVEL HEALTH & VACCINATION" },
-    { key: "visa", text: "VISA MEDICAL" },
-    { key: "allergy", text: "ALLERGY SCREEENING" },
-    { key: "cancer", text: "CANCER SCREEENING" },
-  ]
 
   useEffect(() => {
     window.scrollTo(0, 0)

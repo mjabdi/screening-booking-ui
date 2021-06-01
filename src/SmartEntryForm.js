@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import GlobalState from './GlobalState';
 
-import { Grid } from '@material-ui/core';
+import { Backdrop, CircularProgress, Grid } from '@material-ui/core';
 import CategoriesForm from './CategoriesForm';
 import HealthGenderForm from './HealthGenderFrom';
 
@@ -21,6 +21,10 @@ import TimeForm from './TimeForm';
 import InformationForm from './InformationForm';
 import ReviewForm from './ReviewForm';
 import ChooseCountryForm from './ChooseCountryForm';
+import BookService from './services/BookService';
+import dateformat from 'dateformat';
+import ResultsForm from './ResultsForm';
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -31,7 +35,12 @@ const useStyles = makeStyles((theme) => ({
     "&:hover" : {
       backgroundColor: "#ed3b00",
     }
-  }
+  },
+
+  backdrop: {
+    zIndex: 999,
+    color: '#fff',
+  },
 
 }));
 
@@ -39,12 +48,73 @@ export default function SmartEntryForm() {
   const [state, setState] = React.useContext(GlobalState);
   const classes = useStyles();
 
+  const [submiting, setSubmiting] = React.useState(false);
+
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
 
+  const getPackageName = () => {
+
+    if (state.cat.key === "visa")
+    {
+      let destination = state.destination
+      if (destination === "Other...")
+      {
+        destination = state.destinationText
+      }
+      return `${state.cat.text.toUpperCase()} ${` ( ${destination.toUpperCase()} )`}`
+    }else
+    {
+      return `${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`
+    }
+  }
+
+
   const submitForm = () => {
-    alert("Submit")
+    var promiseArray = [];
+
+    setSubmiting(true)
+
+    BookService.getNewReference().then( (res) => {
+
+      const ref = res.data.ref;
+
+      setState(state => ({...state, ref: ref}));
+
+      let referrer = '/'
+
+      const personInfo = {
+        fullname: state.fullname,
+        email: state.email,
+        phone: state.phone,
+        notes: state.notes,
+        service: getPackageName()
+      };
+  
+      const promise = BookService.bookAppointment({...personInfo, bookingDate:  dateformat(new Date(state.bookingDate.toUTCString().slice(0, -4)),'yyyy-mm-dd'), bookingTime: state.bookingTime, bookingRef: ref, referrer: referrer });
+      promiseArray.push(promise);
+  
+      
+      Promise.all(promiseArray).then( (values) => {
+
+        setState(state => ({...state, finalResults: values, activeStep : state.activeStep + 1, formDone: true}));
+
+        setSubmiting(false);
+  
+      }).catch( (errs) =>
+      {
+        console.log(`Error :  ${errs}`);
+        setSubmiting(false);
+      });
+
+    }).catch( (err) =>
+    {
+      console.log(`Cannot Get REF NO. : ${err}`);
+      setSubmiting(false);
+    });;
+
   }
 
 
@@ -69,6 +139,10 @@ export default function SmartEntryForm() {
       else if (_state.activeStep === 6) {
         return <ReviewForm/>
       }
+      else if (_state.activeStep === 7) {
+        return <ResultsForm/>
+      }
+
     } else if (_state.cat.key === "allergy") {
       if (_state.activeStep === 1) {
         return <ScreenPackagesForm />
@@ -82,6 +156,9 @@ export default function SmartEntryForm() {
       }
       else if (_state.activeStep === 5) {
         return <ReviewForm/>
+      }
+      else if (_state.activeStep === 6) {
+        return <ResultsForm/>
       }
     }else if (_state.cat.key === "visa") {
       if (_state.activeStep === 1) {
@@ -97,6 +174,9 @@ export default function SmartEntryForm() {
       else if (_state.activeStep === 5) {
         return <ReviewForm/>
       }
+      else if (_state.activeStep === 6) {
+        return <ResultsForm/>
+      }
     }    
     else {
       if (_state.activeStep === 1) {
@@ -110,6 +190,9 @@ export default function SmartEntryForm() {
       else if (_state.activeStep === 4) {
         return <ReviewForm/>
       }
+      else if (_state.activeStep === 5) {
+        return <ResultsForm/>
+      }
     }
 
     return null
@@ -117,25 +200,32 @@ export default function SmartEntryForm() {
 
   return (
     <React.Fragment>
+      
+      <Backdrop className={classes.backdrop} open={submiting} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       {getComponentFromState(state)}
-      {state.activeStep > 0 && (
+      {state.activeStep > 0 && !state.formDone && (
         <div style={{ marginTop: "10px" }}>
           <Divider />
           <Grid container direction="row" justify="space-between" alignItems="center" style={{ width: "100%", paddingTop: "10px" }}>
             <Grid item>
-              <Button startIcon={<NavigateBeforeIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep - 1 }))}>
-                {`Back`}
-              </Button>
+              {state.activeStep > state.minActiveStep && (
+                <Button startIcon={<NavigateBeforeIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep - 1 }))}>
+                   {`Back`}
+                </Button>
+              ) }
             </Grid>
 
             <Grid item>
-              {state.showNext && !state.lastStep && (
+              {state.showNext && !state.lastStep && !state.formDone &&  (
                   <Button endIcon={<NavigateNextIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep + 1 }))}>
                       {`Next`}
                   </Button>
               )}
 
-              {state.showNext && state.lastStep && (
+              {state.showNext && state.lastStep && !state.formDone && (
                   <Button className={classes.submitButton} variant="contained" color="primary" onClick={() => submitForm()}>
                       {`Submit`}
                   </Button>
@@ -144,6 +234,8 @@ export default function SmartEntryForm() {
             </Grid>
 
           </Grid>
+
+
 
         </div>
 

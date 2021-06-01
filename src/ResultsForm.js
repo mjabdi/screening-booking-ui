@@ -71,10 +71,11 @@ export default function ResultsForm() {
             </Typography>
             <br />
             <Typography variant="subtitle1">
-              Your booking number is{" "}
-              <span className={classes.bold}>{`"${state.ref}"`}</span> . We have
-              emailed your booking information, and will look forward to meet
-              you at the clinic.
+                Your booking number is{" "}
+              <span className={classes.bold}>{`"${state.ref}"`}</span>.
+              <p>
+                The Date and Time you have selected is not guaranteed, and might need to be re-arranged. We will review your request and arrange the neccessary actions. We will get back to you soon (via email or sms/phone call) to confirm the appointment.
+              </p>
             </Typography>
           </React.Fragment>
         )}

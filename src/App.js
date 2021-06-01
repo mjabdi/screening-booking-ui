@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import BookService from './services/BookService';
 import theme from "./theme";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
+import { getCatText, getPackageByIndex } from './ScreeningPackageLoader';
 
 
 
@@ -36,34 +37,62 @@ function App() {
 
     console.log(map)
 
+    const _state = {
+      cat: {key: map.get("cat"), text: getCatText(map.get("cat"))},
+      age: map.get("age"), 
+      gender: map.get("gender")
+    }
+
     setState(state => ({...state,
                          parametersMap : map, 
                          urlRead: true,
-                         cat: {key: map.get("cat")} ,
+                         cat: {key: map.get("cat"), text: getCatText(map.get("cat")) } ,
                          age: map.get("age"),
                          gender: map.get("gender"),
-                         packageUrl: map.get("package"),
-                         activeStep: calculateActiveStep(map.get("cat"),map.get("age"),map.get("gender")) 
+                         destination: map.get("destination"),
+                         packageIndex: parseInt(map.get("package")),
+                         activeStep: calculateActiveStep(map.get("cat"),map.get("age"),map.get("gender"),parseInt(map.get("package")),map.get("destination")),
+                         minActiveStep : calculateActiveStep(map.get("cat"),map.get("age"),map.get("gender"),parseInt(map.get("package")),map.get("destination")),
+                         package: getPackageByIndex(parseInt(map.get("package")), _state)
                       }))
  }
 
- const calculateActiveStep = (cat, age, gender, packageUrl) =>
+ const calculateActiveStep = (cat, age, gender, packageIndex, destination) =>
  {
-   if (!packageUrl)
-   {
-      if (cat === "health")
+    if (cat === "health")
+    {
+      if (age && gender && !packageIndex)
       {
-        if (age && gender)
-        {
-          return 2
-        }else {
-          return 1
-        }
-      }else if (cat === "allergy")
+        return 2
+      }else if (!packageIndex) {
+        return 1
+      }else if (packageIndex){
+        return 3
+      }
+    }else if (cat === "allergy")
+    {
+      if (packageIndex > 0)
+      {
+        return 2
+      }else
       {
         return 1
-      } 
-   }
+      }
+    }else if (cat === "visa")
+    {
+      if (destination && destination.length > 1)
+      {
+        return 2
+      }else
+      {
+        return 1
+      }
+
+    }
+    else if (cat)
+    {
+      return 1
+    } 
 
    return 0
  }

@@ -10,7 +10,7 @@ export default class TimeService{
         axiosRetry( API, { retries: 3,  retryDelay: (retryCount) => {
             return retryCount * 1000;
           } });
-        return API.get('/api/gp/time/getfirstavaiabledate');
+        return API.get('/api/screening/time/getfirstavaiabledate');
     }
 
     static getFullyBookedDates = () =>
@@ -18,7 +18,7 @@ export default class TimeService{
         axiosRetry( API, { retries: 3,  retryDelay: (retryCount) => {
             return retryCount * 1000;
           } });
-       return API.get('/api/gp/time/getfullybookeddays');
+       return API.get('/api/screening/time/getfullybookeddays');
     }
 
     static getTimeSlots = (date) =>
@@ -28,7 +28,7 @@ export default class TimeService{
           } });
 
         const date_utc =  dateformat(new Date(date.toUTCString().slice(0, -4)),'yyyy-mm-dd');
-        return API.get(`/api/gp/time/gettimeslots?date=${date_utc}`);
+        return API.get(`/api/screening/time/gettimeslots?date=${date_utc}`);
     }
 
 
