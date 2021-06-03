@@ -101,6 +101,18 @@ const useStyles = makeStyles((theme) => ({
         
       },
 
+      boxDisableMobile: {
+        backgroundColor: "#999",
+        border: "1px solid #ddd",
+        color: "#ddd",
+        cursor: "not-allowed",
+        padding: "10px 5px",
+
+        borderRadius: "8px",
+        
+      },
+
+
       title: {
         color : theme.palette.primary.main,
         marginBottom: "20px",
@@ -282,7 +294,7 @@ export default function TimeForm() {
                                 <GridListTile key={timeSlot.time} cols={1}>
                                   <div 
                                       onClick = {() => {timeSlot.available? boxClicked(timeSlot.time) : boxClicked(null)}}
-                                      className={(timeSlot.available) ? ((bookingTime === timeSlot.time)? classes.boxSelectedMobile : classes.boxMobile ): classes.boxDisable}>
+                                      className={(timeSlot.available) ? ((bookingTime === timeSlot.time)? classes.boxSelectedMobile : classes.boxMobile ): classes.boxDisableMobile}>
                                       {timeSlot.time}
                                   </div>
                                 </GridListTile>
