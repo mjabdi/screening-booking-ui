@@ -90,7 +90,8 @@ export default function SmartEntryForm() {
         email: state.email,
         phone: state.phone,
         notes: state.notes,
-        service: getPackageName()
+        service: getPackageName(),
+        birthDate: state.birthDate
       };
   
       const promise = BookService.bookAppointment({...personInfo, bookingDate:  dateformat(new Date(state.bookingDate.toUTCString().slice(0, -4)),'yyyy-mm-dd'), bookingTime: state.bookingTime, bookingRef: ref, referrer: referrer });

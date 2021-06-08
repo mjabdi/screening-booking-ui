@@ -76,6 +76,7 @@ export default function InformationForm() {
   const [state, setState] = React.useContext(GlobalState);
   const [fullname, setFullname] = React.useState(state.fullname ?? "");
   const [email, setEmail] = React.useState(state.email ?? "");
+  const [birthDate, setBirthDate] = React.useState(state.birthDate ?? "");
   const [retypeEmail, setRetypeEmail] = React.useState(state.retypeEmail ?? "");
   const [emailConfirmed, setEmailConfirmed] = React.useState(
     state.emailConfirmed ?? false
@@ -142,6 +143,15 @@ export default function InformationForm() {
     }
   };
 
+  const birthDateChanged = (value) => {
+    setBirthDate(value);
+    setState((state) => ({ ...state, birthDate: value }));
+    if (value && value.trim().length >= 6) {
+      setState((state) => ({ ...state, birthDateError: false }));
+    }
+  };
+
+
 
   const validateForm = () =>
   {
@@ -169,6 +179,15 @@ export default function InformationForm() {
       setState(state => ({...state, phoneError : true}));
       error = true;
     }
+
+    if (!state.birthDate || state.birthDate.trim().length < 10)
+    {
+      setState(state => ({...state, birthDateError : true}));
+      error = true;
+    }
+
+
+
   
     return !error;   
   }
@@ -237,6 +256,17 @@ export default function InformationForm() {
             onChange={retypeEmailChanged}
             // helperText = 'This email address is where you will receive your results. Please tick the box below to confirm that this is a private email address to which you are happy for us to send your results.'
           />
+        </Grid>
+
+        <Grid xs={12} style={{marginTop:"10px"}}>
+           <DateField
+                error={state.birthDateError ? true : false}
+                title="Date of Birth"
+                value={birthDate}
+                dateChanged={birthDateChanged}
+             >
+
+             </DateField>
         </Grid>
 
         {/* <Grid item xs={12} className={classes.formControl} >

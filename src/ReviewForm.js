@@ -354,6 +354,11 @@ export default function ReviewForm() {
                     <span className={classes.infoTitle}>Email Address</span>
                     <span className={classes.infoData}> {state.email} </span>
                   </li>
+                  <li className={classes.li}>
+                    <span className={classes.infoTitle}>Date of Birth</span>
+                    <span className={classes.infoData}> {FormatDateFromString(state.birthDate)} </span>
+                  </li>
+
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>
