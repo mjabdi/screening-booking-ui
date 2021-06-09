@@ -102,7 +102,7 @@ export default function InformationForm() {
   useEffect(() => {
     const isValid = validateForm()
     setState(state => ({...state, showNext: isValid ? true : false}))
-  }, [fullname, phone, email, retypeEmail]);
+  }, [fullname, phone, email, retypeEmail, birthDate]);
 
 
   const emailConfirmedChanged = (event) => {
