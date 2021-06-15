@@ -1,5 +1,5 @@
 const packages_health_men_under40 = [
-    { price: 295 , text: "MEDISCREEN BASIC MOT" },
+    { price: 395 , text: "MEDISCREEN BASIC MOT" },
     { price: 595 , text: "HEALTH BASICS MOT" },
     { price: 895 , text: "HEALTH ADVANCED MOT" },
     { price: 1299 , text: "HEALTH ELITE MOT" },
@@ -15,7 +15,7 @@ const packages_health_men_under40 = [
   ]
 
   const packages_health_women_under40 = [
-    { price: 295 , text: "MEDISCREEN BASIC MOT" },
+    { price: 395 , text: "MEDISCREEN BASIC MOT" },
     { price: 595 , text: "WOMEN'S HEALTH BASICS MOT" },
     { price: 895 , text: "WOMEN'S HEALTH ADVANCED MOT" },
     { price: 1999 , text: "WOMEN'S HEALTH ELITE MOT" },
