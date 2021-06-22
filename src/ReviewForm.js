@@ -247,7 +247,8 @@ export default function ReviewForm() {
               textAlign: "justify",
             }}
           >
-            The <b>Date and Time</b> you have selected is <b>not guaranteed</b>, and might need to be re-arranged. We will review your request and arrange the neccessary actions. We will get back to you soon (via email or sms/phone call) to confirm the appointment.
+            Thank you for making your booking. As we need to arrange some of your investigations with our partner hospitals, the date and time you have selected <span style={{fontWeight:"700", color:"red"}}> is not yet guaranteed </span> and might need to be re-arranged. 
+Whilst the vast majority of patients are seen at their requested time, please keep an eye on your email/phone as we will call and email you if we have needed to re-arrange your appointment.
         </Alert>
         </div>
       </Fade>
