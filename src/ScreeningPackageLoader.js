@@ -3,7 +3,7 @@ const packages_health_men_under40 = [
     { price: 595 , text: "HEALTH BASICS MOT" },
     { price: 895 , text: "HEALTH ADVANCED MOT" },
     { price: 1299 , text: "HEALTH ELITE MOT" },
-    { price: 525 , text: "MEDISCREEN SEXUAL HEALTH MOT" },
+    // { price: 525 , text: "MEDISCREEN SEXUAL HEALTH MOT" },
   ]
 
   const packages_health_men_over40 = [
