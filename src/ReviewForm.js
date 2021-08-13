@@ -22,6 +22,8 @@ import Icon from "@material-ui/core/Icon";
 import dateformat from "dateformat";
 
 import Fade from "react-reveal/Fade";
+import Alert from "@material-ui/lab/Alert";
+
 
 import { calculatePrice, calculateTotalPrice } from "./PriceCalculator";
 
@@ -30,7 +32,6 @@ import { FormatDateFromString } from "./DateFormatter";
 
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import BookService from "./services/BookService";
-import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   box: {
