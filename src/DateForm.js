@@ -143,7 +143,7 @@ export default function DateForm() {
 
   useEffect(() => {
     LoadData();
-    if (state.package.text.toUpperCase().indexOf("ELITE") > 0)
+    if (state.package?.text.toUpperCase().indexOf("ELITE") > 0)
     {
       setOpenDialog(true)
     }
