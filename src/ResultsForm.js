@@ -41,6 +41,10 @@ export default function ResultsForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+
+    setState(state => ({...state, formDone : true}))
+
+
   }, []);
 
   const AllError = (results) =>
@@ -72,7 +76,7 @@ export default function ResultsForm() {
             <br />
             <Typography variant="subtitle1">
                 Your booking number is{" "}
-              <span className={classes.bold}>{`"${state.ref}"`}</span>.
+              <span className={classes.bold}>{`"${state.bookingRef}"`}</span>.
               <p style={{textAlign:"justify", fontWeight:"500"}}>
               Thank you for requesting an appointment, due to the comprehensive nature of the medical, we need to arrange some of the services prior to confirmation. As such, the Date and Time you have selected is not yet confirmed, however we will make arrangements as close to your requested dates and times as possible, the vast majority of patients are seen at their selected time or with an hours flexibility. We will get back to you very soon via email or telephone to finalise your booking.
               </p>

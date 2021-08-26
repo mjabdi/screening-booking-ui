@@ -24,6 +24,7 @@ import ChooseCountryForm from './ChooseCountryForm';
 import BookService from './services/BookService';
 import dateformat from 'dateformat';
 import ResultsForm from './ResultsForm';
+import PayForm from './PayForm';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     backgroundColor: "#d43500",
     transition : "all 0.3s ease",
-    width: "100px",
+    minWidth: "100px",
     "&:hover" : {
       backgroundColor: "#ed3b00",
     }
@@ -141,6 +142,9 @@ export default function SmartEntryForm() {
         return <ReviewForm/>
       }
       else if (_state.activeStep === 7) {
+        return <PayForm/>
+      }
+      else if (_state.activeStep === 8) {
         return <ResultsForm/>
       }
 
@@ -159,6 +163,9 @@ export default function SmartEntryForm() {
         return <ReviewForm/>
       }
       else if (_state.activeStep === 6) {
+        return <PayForm/>
+      }
+      else if (_state.activeStep === 7) {
         return <ResultsForm/>
       }
     }else if (_state.cat.key === "visa") {
@@ -176,6 +183,10 @@ export default function SmartEntryForm() {
         return <ReviewForm/>
       }
       else if (_state.activeStep === 6) {
+        return <PayForm/>
+      }
+
+      else if (_state.activeStep === 7) {
         return <ResultsForm/>
       }
     }    
@@ -192,6 +203,10 @@ export default function SmartEntryForm() {
         return <ReviewForm/>
       }
       else if (_state.activeStep === 5) {
+        return <PayForm/>
+      }
+
+      else if (_state.activeStep === 6) {
         return <ResultsForm/>
       }
     }
@@ -227,8 +242,8 @@ export default function SmartEntryForm() {
               )}
 
               {state.showNext && state.lastStep && !state.formDone && (
-                  <Button className={classes.submitButton} variant="contained" color="primary" onClick={() => submitForm()}>
-                      {`Submit`}
+                  <Button className={classes.submitButton} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep + 1 }))}>
+                      {`Proceed To Payment`}
                   </Button>
               )}
 

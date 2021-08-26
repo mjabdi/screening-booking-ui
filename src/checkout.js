@@ -43,6 +43,8 @@ import ResultsForm from './ResultsForm';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import faq from './FAQ';
 import dateformat from 'dateformat';
+import PayForm from './PayForm';
+
 
 
 function Copyright() {
@@ -160,6 +162,9 @@ function getStepContent(step) {
       return <InformationForm />;
     case 3:
         return <ReviewForm />;
+    case 4: 
+        return <PayForm />;   
+
     default:
       throw new Error('Unknown step');
   }
@@ -417,16 +422,18 @@ export default function Checkout() {
                     </Button>
                   )}
 
-                  <Button
-                    disabled={submiting} 
+            {state.activeStep < steps.length - 1 && (
+                <Button
+                    disabled={submiting || (state.activeStep === steps.length - 2 && !state.bookingRef)}
                     variant="contained"
                     color="primary"
-                    onTouchTap = {handleNext} 
+                    onTouchTap={handleNext}
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {state.activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                    {state.activeStep === steps.length - 2 ? "Proceed to Payment" : "Next"}
                   </Button>
+              )}
                   
 
 

@@ -6,11 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import GlobalState from "./GlobalState";
-import PaymentForm from "./PaymentForm";
+import PaymentForm, { SANDBOX } from "./PaymentForm";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import dateformat from "dateformat";
 import { Backdrop } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import BookService from "./services/BookService";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -65,8 +66,9 @@ export default function PayForm() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+
     let sqPaymentScript = document.createElement("script");
-    sqPaymentScript.src = "https://js.squareup.com/v2/paymentform";
+    sqPaymentScript.src = SANDBOX ? "https://js.squareupsandbox.com/v2/paymentform" : "https://js.squareup.com/v2/paymentform";
     sqPaymentScript.type = "text/javascript";
     sqPaymentScript.async = false;
     sqPaymentScript.onload = () => {
@@ -75,9 +77,19 @@ export default function PayForm() {
     document.getElementsByTagName("head")[0].appendChild(sqPaymentScript);
 
     loadPersonInfo();
+
+    setState(state => ({...state, showNext : false}))
+
+    return () => {
+      setState(state => ({...state, showNext : true}))
+    }
+
+
+    
+
   }, []);
 
-  const loadPersonInfo = () => {
+  const loadPersonInfo = async () => {
     let referrer = window.location.pathname;
     if (referrer && referrer.startsWith("/id")) {
       referrer = "/";
@@ -88,7 +100,8 @@ export default function PayForm() {
       email: state.email,
       phone: state.phone,
       notes: state.notes,
-      service: state.package,
+      service: getPackageName(),
+      birthDate: state.birthDate,
       bookingDate: dateformat(
         new Date(state.bookingDate.toUTCString().slice(0, -4)),
         "yyyy-mm-dd"
@@ -100,6 +113,22 @@ export default function PayForm() {
 
     setPersonInfo(_personInfo);
   };
+
+  const getPackageName = () => {
+
+    if (state.cat.key === "visa")
+    {
+      let destination = state.destination
+      if (destination === "Other...")
+      {
+        destination = state.destinationText
+      }
+      return `${state.cat.text.toUpperCase()} ${` ( ${destination.toUpperCase()} )`}`
+    }else
+    {
+      return `${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`
+    }
+  }
 
   const onComplete = (res) => {
     setState((state) => ({ ...state, finalResults: [res] }));

@@ -200,11 +200,27 @@ export default function ReviewForm() {
 
     setState(state => ({...state, lastStep : true}))
 
+    getReferenceNumber();
+
     return () => {
       setState(state => ({...state, lastStep : false}))
     }
 
   }, []);
+
+  const getReferenceNumber = async () => 
+  {
+    if (!state.bookingRef) {
+      try {
+        const res = await BookService.getNewReference();
+        if (res && res.data && res.data.ref) {
+          setState((state) => ({ ...state, bookingRef: res.data.ref }));
+        }
+      } catch (ex) {
+        console.error(ex);
+      }
+    }
+  }
 
   const dataConfirmedChanged = (event) => {
     setState((state) => ({ ...state, dataConfirmed: event.target.checked }));
@@ -372,7 +388,7 @@ Whilst the vast majority of patients are seen at their requested time, please ke
           </div>
         </Fade>
         <div className={classes.terms}>
-          By clicking on "SUBMIT" button you are agreeing with our{" "}
+          By clicking on "PROCEED TO PAYMENT" button you are agreeing with our{" "}
           <a
             className={classes.link}
             target="_blank"
@@ -380,6 +396,14 @@ Whilst the vast majority of patients are seen at their requested time, please ke
           >
             terms and condition.
           </a>
+        </div>
+
+        <div>
+          <Alert severity="info">
+           <div style={{fontSize:"1rem", fontWeight:"500"}}>
+            You need to pay <b style={{color:"red"}}>£100</b> deposit to secure your appointment.
+            </div>
+          </Alert>
         </div>
 
         {/* <div style={{textAlign:"left", color: "#111", marginLeft:"10px"}}>
