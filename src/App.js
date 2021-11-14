@@ -10,10 +10,10 @@ import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 import { getCatText, getPackageByIndex } from './ScreeningPackageLoader';
 
 
-
 function App() {
   const [state, setState] = React.useState({activeStep : 0});
 
+  
   useEffect(() => {
     loadParametersFromUrl()
   }, [])
