@@ -58,6 +58,7 @@ export default function ChooseCountryForm() {
   }
 
   const destinations = [
+    "Qatar",
     "Bahrain",
     "Barbados",
     "Bermuda",
