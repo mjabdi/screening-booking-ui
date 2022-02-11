@@ -101,7 +101,8 @@ export default function PayForm() {
       phone: state.phone,
       notes: state.notes,
       service: getPackageName(),
-      birthDate: state.birthDate,
+      price: state.package.price || '',
+      birthDate: state.birthDate,      
       bookingDate: dateformat(
         new Date(state.bookingDate.toUTCString().slice(0, -4)),
         "yyyy-mm-dd"
