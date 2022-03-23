@@ -394,7 +394,17 @@ Whilst the vast majority of patients are seen at their requested time, please ke
             target="_blank"
             href="https://www.medicalexpressclinic.co.uk/terms-and-conditions"
           >
-            terms and condition.
+            terms and condition
+          </a>
+          &nbsp;
+          and 
+          &nbsp;
+          <a
+            className={classes.link}
+            target="_blank"
+            href="https://www.medicalexpressclinic.co.uk/consent-to-treatment-policies"
+          >
+            consent to treatment policies.
           </a>
         </div>
 
