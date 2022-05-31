@@ -100,6 +100,7 @@ export default function PayForm() {
       email: state.email,
       phone: state.phone,
       notes: state.notes,
+      gender: state.gender,
       service: getPackageName(),
       price: state.package?.price || '',
       birthDate: state.birthDate,      

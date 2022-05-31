@@ -45,6 +45,12 @@ export default function ValidateStep (state,setState, step)
         setState(state => ({...state, phoneError : true}));
         error = true;
       }
+
+      if (!state.gender)
+      {
+        setState(state => ({...state, genderError : true}));
+        error = true;
+      }
     }
 
       return !error;   
