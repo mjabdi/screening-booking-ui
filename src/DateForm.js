@@ -35,6 +35,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { Button } from '@material-ui/core';
+import AgreementForm from './AgreementForm';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -97,19 +98,19 @@ export default function DateForm() {
   };
 
   const handleCloseDialog = (close) => {
-    if (close)
-    {
+    if (close) {
       setOpenDialog(false);
     }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    setState(state => ({ ...state, showNext: state.bookingDate ? true : false }))
+    setState(state => ({ ...state, showNext: (state.bookingDate && state.agreed) ? true : false }))
+
   }, []);
 
   useEffect(() => {
-    setState(state => ({ ...state, showNext: state.bookingDate ? true : false }))
+    setState(state => ({ ...state, showNext: (state.bookingDate && state.agreed) ? true : false }))
   }, [state.bookingDate]);
 
 
@@ -143,8 +144,7 @@ export default function DateForm() {
 
   useEffect(() => {
     LoadData();
-    if (state.package?.text.toUpperCase().indexOf("ELITE") > 0)
-    {
+    if (state.package?.text.toUpperCase().indexOf("ELITE") > 0) {
       setOpenDialog(true)
     }
 
@@ -210,105 +210,118 @@ export default function DateForm() {
 
     <React.Fragment>
 
-      <Typography variant="h5" gutterBottom className={classes.title}>
-        Pick a Date
-      </Typography>
+      {!state.agreed && (
+        <React.Fragment>
+            <AgreementForm/>
+        </React.Fragment>
+      )}
 
-      {(dataLoaded && firstAvailableDay) ? (
-
+      {state.agreed && (
         <React.Fragment>
 
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
+          <Typography variant="h5" gutterBottom className={classes.title}>
+            Pick a Date
+          </Typography>
+
+          {(dataLoaded && firstAvailableDay) ? (
+
+            <React.Fragment>
+
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+
+                <BrowserView>
+                  <MuiPickersUtilsProvider utils={UTCUtils} locale={enGB}>
+                    <DatePicker autoOk
+                      disablePast={true}
+                      openTo="date"
+                      orientation="landscape"
+                      variant="static"
+                      fullWidth
+                      value={bookingDate}
+                      onChange={dateChanged}
+                      shouldDisableDate={checkFullyBooked}
+                    />
+                  </MuiPickersUtilsProvider>
+                </BrowserView>
+
+                <MobileView>
+                  <MuiPickersUtilsProvider utils={UTCUtils} locale={enGB}>
+                    <DatePicker autoOk
+                      disablePast={true}
+                      openTo="date"
+                      variant="static"
+                      fullWidth
+                      value={bookingDate}
+                      onChange={dateChanged}
+                      shouldDisableDate={checkFullyBooked}
+                    />
+                  </MuiPickersUtilsProvider>
+                </MobileView>
+              </Grid>
+
+            </React.Fragment>
+          )
+            :
+            (
+              <React.Fragment>
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                >
+
+                  <Skeleton variant="text" width={'80%'} />
+                  <Skeleton variant="text" width={'80%'} />
+                  <Skeleton variant="rect" width={'80%'} height={220} />
+
+                </Grid>
+              </React.Fragment>
+            )
+          }
+
+
+          <Dialog
+            open={openDialog}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={() => handleCloseDialog(false)}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
           >
+            <DialogTitle id="alert-dialog-slide-title">{"NOTICE"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                <div style={{
+                  color: "#111",
+                  fontWeight: "400",
+                  textAlign: "justify"
+                }}
+                >
 
-            <BrowserView>
-              <MuiPickersUtilsProvider utils={UTCUtils} locale={enGB}>
-                <DatePicker autoOk
-                  disablePast={true}
-                  openTo="date"
-                  orientation="landscape"
-                  variant="static"
-                  fullWidth
-                  value={bookingDate}
-                  onChange={dateChanged}
-                  shouldDisableDate={checkFullyBooked}
-                />
-              </MuiPickersUtilsProvider>
-            </BrowserView>
+                  <p>Thank you for booking an <b>Elite health screen</b>. Please proceed through the booking process, selecting when you would ideally like your medical. Due to the detailed nature of the service, we need to confirm a few details with you prior to arranging all of the services with our partner hospitals, and this might mean that we need to change the date or time of your appointment. </p>
 
-            <MobileView>
-              <MuiPickersUtilsProvider utils={UTCUtils} locale={enGB}>
-                <DatePicker autoOk
-                  disablePast={true}
-                  openTo="date"
-                  variant="static"
-                  fullWidth
-                  value={bookingDate}
-                  onChange={dateChanged}
-                  shouldDisableDate={checkFullyBooked}
-                />
-              </MuiPickersUtilsProvider>
-            </MobileView>
-          </Grid>
+                  <p>As such, we will call you on the number you have provided during working hours to confirm all the details of your service prior to finalising your appointment, following which confirmation will be sent to you via email. </p>
+
+                  <p style={{ fontWeight: "500" }}>Thank you for making your booking.</p>
+                </div>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => handleCloseDialog(true)} color="primary">
+                AGREE
+              </Button>
+            </DialogActions>
+          </Dialog>
 
         </React.Fragment>
-      )
-        :
-        (
-          <React.Fragment>
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
 
-              <Skeleton variant="text" width={'80%'} />
-              <Skeleton variant="text" width={'80%'} />
-              <Skeleton variant="rect" width={'80%'} height={220} />
-
-            </Grid>
-          </React.Fragment>
-        )
-      }
-
-
-      <Dialog
-        open={openDialog}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={() => handleCloseDialog(false)}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">{"NOTICE"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <div style={{
-              color:"#111",
-             fontWeight:"400",
-             textAlign: "justify"
-             }}
-             >
-
-              <p>Thank you for booking an <b>Elite health screen</b>. Please proceed through the booking process, selecting when you would ideally like your medical. Due to the detailed nature of the service, we need to confirm a few details with you prior to arranging all of the services with our partner hospitals, and this might mean that we need to change the date or time of your appointment. </p>
-
-              <p>As such, we will call you on the number you have provided during working hours to confirm all the details of your service prior to finalising your appointment, following which confirmation will be sent to you via email. </p>
-
-              <p style={{fontWeight:"500"}}>Thank you for making your booking.</p>
-            </div>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleCloseDialog(true)} color="primary">
-            AGREE
-          </Button>
-        </DialogActions>
-      </Dialog>
+      )}
 
     </React.Fragment>
   );

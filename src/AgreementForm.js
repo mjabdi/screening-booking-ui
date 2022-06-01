@@ -15,7 +15,7 @@ import TimeForm from './TimeForm';
 import InformationForm from './InformationForm';
 import ReviewForm from './ReviewForm';
 import GlobalState from './GlobalState';
-import AddressForm from './AddressForm';
+// import AddressForm from './AddressForm';
 import BookService from './services/BookService';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -257,14 +257,17 @@ export default function AgreementForm() {
 
 
 const getAgreeClicked = (event) => {
-    if (check.check1 && check.check2 && check.check3 && check.check4)
-    {
-        setState(state => ({...state, agreed: true}));
-    }
-    else
-    {
-        setError(true);
-    }
+
+  setState(state => ({...state, agreed: true}));
+
+    // if (check.check1 && check.check2 && check.check3 && check.check4)
+    // {
+    //     setState(state => ({...state, agreed: true}));
+    // }
+    // else
+    // {
+    //     setError(true);
+    // }
 }
 
 useEffect( () => {
@@ -276,45 +279,24 @@ useEffect( () => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
 
-
-        <Grid
-            container
-            direction="row"
-            spacing= {1}
-            justify="center"
-            alignItems="center"
-        >
-
-
-            <Grid item item xs={10}>
-                  <Typography  style={{fontWeight: "400"}} variant="h6" color="inherit" noWrap>
-                    Medical Express Clinic
-                  </Typography>
-            </Grid>
-
-            <Grid item xs={2}>
-                    <img className={classes.logoImage} src={logoImage} alt="logo image"/> 
-            </Grid>
-
-
-        
-        </Grid>  
-        </Toolbar>
-      </AppBar>
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
 
 
           <Typography style={{ marginBottom: "30px"}} component="h1" variant="h6" align="left">
               Patients wishing to book an appointment must confirm that:
           </Typography>
 
+            <ul style={{fontSize:"1.1rem", color:"#333", textAlign:"left"}}>
+              <li style={{marginTop:"15px"}}>
+                {`I do not have any symptoms of COVID-19.`}
+              </li>
+              <li style={{marginTop:"15px"}}>
+                {`I have not been in contact recently with a confirmed COVID-19 case.`}
+              </li>
+            </ul>
+                  
 
-                <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3}>
+                {/* <Grid container  direction="column"  justify="flex-start" alignItems="flex-start" spacing={3} style={{textAlign:"left"}}>
 
                 <Grid item xs={12}  >
 
@@ -353,16 +335,7 @@ useEffect( () => {
                             />
                     </Grid>
 
-                    {/* <Grid item xs={12}  >
-
-                        <FormControlLabel style={{ fontSize: '1rem', textAlign:"justify" }}
-                                    control={<Checkbox color="secondary" name="check5" checked={check.check5} onChange={(event => checkClicked(event,5))}  />}
-                                    label={<span style={{ fontSize: '1rem', textAlign:"left" }}>{`I confirm that this appointment is for a Fit to Fly PCR Test, not for the Test to Release scheme.`} 
-                                    </span>}
-                                />
-                        </Grid> */}
-
-                </Grid>
+                </Grid> */}
 
              
 
@@ -370,15 +343,15 @@ useEffect( () => {
 
                
 
-            <p className={isMobile ? classes.textContentMobile : classes.textContent}>
-                 If you cannot confirm all the points stated above, you must not proceed any further and must self-isolate for the next 14 days. Please click the box to agree to these terms.
+            <p className={isMobile ? classes.textContentMobile : classes.textContent} style={{background:"#ffe8e8", color : "#990000", padding:"10px", borderRadius: "8px"}}>
+                If you cannot confirm all the point stated above, you must not proceed any further. Please click the "Agree" button to agree to these terms.
             </p>
 
             {error && (
                 <Alert severity="error">You need to check all the terms to proceed! </Alert>
             )}
             
-
+{/* 
         <Button 
                 // variant="contained" 
                 className={classes.getStartedButton} 
@@ -388,7 +361,7 @@ useEffect( () => {
                 onTouchTap={backButtonClicked} 
                 >
         Back
-        </Button>
+        </Button> */}
 
           <Button 
                   variant="contained" 
@@ -401,29 +374,8 @@ useEffect( () => {
          </Button>
       
 
-        </Paper>
 
-        <Button 
-                  variant="contained" 
-                  className={classes.privacyButton} 
-                  color="secondary"
-                  startIcon={<HttpsIcon/>}
-                  onClick={handleClickOpen('paper')}
-                  onTouchTap={handleClickOpen('paper')} 
-                  >
-             Privacy
-         </Button>
 
-         <Button 
-                  variant="contained" 
-                  className={classes.faqButton} 
-                  color="secondary"
-                  startIcon={<LiveHelpIcon/>}
-                  onClick={handleClickOpenFAQ('paper')}
-                  onTouchTap={handleClickOpenFAQ('paper')} 
-                  >
-             FAQ
-         </Button>
 
          <Dialog
                         open={open}
@@ -432,27 +384,40 @@ useEffect( () => {
                         aria-labelledby="scroll-dialog-title"
                         aria-describedby="scroll-dialog-description"
                       >
-                        <DialogTitle id="scroll-dialog-title">Application Disclaimer</DialogTitle>
-                        <DialogContent dividers={scroll === 'paper'}>
-                          <DialogContentText
-                            id="scroll-dialog-description"
-                            ref={descriptionElementRef}
-                            tabIndex={-1}
-                          >
-                            <div style={{textAlign:"justify", padding:"10px"}}>
-                            Medical Express Clinic will not contact you for any other reason
-                than to share your test results, and certificate if selected,
-                via the email address provided. The information provided to us
-                via this registration form is never shared with any other
-                organisations, except when this is required by law. Information
-                provided will never be used for marketing purposes, you cannot
-                opt in. In the case of a notable health result, our doctor will
-                call on the telephone number provided to inform you of your
-                result and provide additional advice or guidance. If we cannot
-                get hold of you, we will email you asking you to contact the
-                clinic.
-                          </div>
-                          </DialogContentText>
+          <DialogTitle id="scroll-dialog-title">
+              PRIVACY NOTICE
+          </DialogTitle>
+          <DialogContent dividers={scroll === "paper"}>
+            <DialogContentText
+              id="scroll-dialog-description"
+              ref={descriptionElementRef}
+              tabIndex={-1}
+            >
+              <div style={{ textAlign: "justify", padding: "0px", color:"#333" }}>
+                <p>
+                  Medical Express Clinic collects and holds the personal data of patients registered at the clinic so as to provide safe and effective ongoing care for our patients.
+                </p>
+                <p>
+                  Medical records are kept confidentially and securely under lock and key or securely on our server. They are primarily used for the safe and effective delivery of care.
+                </p>  
+                <p>
+                  Your medical record may be subject to clinical audit and management review in order for Medical Express Clinic to maintain and improve our provision of care.
+                </p>
+                <p>
+                  Please review our Patient Information handout, given to you prior to registration for more information.
+                </p>
+                <p>
+                  If you would like to review a full copy of our Privacy and Decency Policy, please ask at reception.
+                </p>
+                <p>
+                  Thank you
+                </p>
+                <p>
+                  Medical Express Clinic
+                </p>
+
+              </div>
+            </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={handleClose} color="primary">
@@ -505,11 +470,7 @@ useEffect( () => {
                         </DialogActions>
           </Dialog>
 
-
-
-
-        <Copyright />
-      </main>
+ 
     </React.Fragment>
   );
 }
