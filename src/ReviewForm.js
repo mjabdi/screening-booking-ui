@@ -382,6 +382,12 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                     <span className={classes.infoData}> {state.gender === "F" ? 'Female' : 'Male' } </span>
                   </li>
 
+                  <li className={classes.li}>
+                    <span className={classes.infoTitle}>Address</span>
+                    <span className={classes.infoData}> {state.address} </span>
+                  </li>
+
+
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>

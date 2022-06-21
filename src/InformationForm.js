@@ -88,6 +88,9 @@ export default function InformationForm() {
 
   const [gender, setGender] = React.useState(state.gender ?? "");
 
+  const [address, setAddress] = React.useState(state.address ?? "");
+
+
   const notesChanged = (event) => {
     setNotes(event.target.value);
     setState((state) => ({ ...state, notes: event.target.value }));
@@ -104,7 +107,7 @@ export default function InformationForm() {
   useEffect(() => {
     const isValid = validateForm()
     setState(state => ({...state, showNext: isValid ? true : false}))
-  }, [fullname, phone, email, retypeEmail, birthDate, gender]);
+  }, [fullname, phone, email, retypeEmail, birthDate, gender, address]);
 
 
   const emailConfirmedChanged = (event) => {
@@ -118,6 +121,15 @@ export default function InformationForm() {
     setState((state) => ({ ...state, fullname: event.target.value }));
     if (event.target.value && event.target.value.trim().length > 0) {
       setState((state) => ({ ...state, fullnameError: false }));
+    }
+  };
+
+
+  const addressChanged = (event) => {
+    setAddress(event.target.value);
+    setState((state) => ({ ...state, address: event.target.value }));
+    if (event.target.value && event.target.value.trim().length >= 5) {
+      setState((state) => ({ ...state, addressError: false }));
     }
   };
 
@@ -172,6 +184,13 @@ export default function InformationForm() {
       setState(state => ({...state, fullnameError : true}));
       error = true;
     }
+
+    if (!state.address || state.address.trim().length < 5)
+    {
+      setState(state => ({...state, addressError : true}));
+      error = true;
+    }
+
     if (!state.email || !EmailValidator.validate(state.email))
     {
       setState(state => ({...state, emailError : true}));
@@ -222,6 +241,7 @@ export default function InformationForm() {
       >
         <Grid item xs={12} md={6}>
           <TextField
+            autoFocus
             error={state.fullnameError ? true : false}
             required
             id="fullname"
@@ -308,6 +328,20 @@ export default function InformationForm() {
           />
           <p>{'* Please take care when entering your information, and double check that everything entered on this form is correct.'}</p>
         </Grid> */}
+
+        <Grid item xs={12} md={12}>
+          <TextField
+            error={state.addressError ? true : false}
+            required
+            id="address"
+            label="Address"
+            fullWidth
+            autoComplete="address"
+            placeholder="please enter your postal address"
+            value={address}
+            onChange={addressChanged}
+          />
+        </Grid>
 
         <Grid item xs={12}>
           <TextField

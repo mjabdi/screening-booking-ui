@@ -92,6 +92,7 @@ export default function SmartEntryForm() {
         phone: state.phone,
         notes: state.notes,
         gender: state.gender,
+        address: state.address,
         service: getPackageName(),
         birthDate: state.birthDate
       };
