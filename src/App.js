@@ -11,7 +11,7 @@ import { getCatText, getPackageByIndex } from './ScreeningPackageLoader';
 
 
 function App() {
-  const [state, setState] = React.useState({activeStep : 0});
+  const [state, setState] = React.useState({activeStep : 0, smsPush: true});
 
   
   useEffect(() => {
