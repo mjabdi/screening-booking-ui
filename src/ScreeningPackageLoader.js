@@ -30,10 +30,18 @@ const packages_health_men_under40 = [
     // { price: 525 , text: "MEDISCREEN SEXUAL HEALTH MOT" },
   ]
 
+  // const packages_allergy = [
+  //   { price: 999 , text: "ALLERGY BASICS MOT PACKAGE" },
+  //   { price: 1499 , text: "ALLERGY ADVANCED MOT PACKAGE" },
+  // ]
   const packages_allergy = [
-    { price: 999 , text: "ALLERGY BASICS MOT PACKAGE" },
-    { price: 1499 , text: "ALLERGY ADVANCED MOT PACKAGE" },
+    { price: 350 , text: "ALEX" },
+    { price: 0 , text: "Skin prick and consultation".toUpperCase()},
+    { price: 0 , text: "Other allergy profiles".toUpperCase()},
+
   ]
+
+
 
   export const categories = [
     { key: "health", text: "HEALTH SCREEENING" },

@@ -78,7 +78,9 @@ export default function ScreenPackagesForm() {
                   <Grid item>
                       {item.text} 
 
-                      <div style={{fontSize:"1.5rem", paddingTop:"5px"}}>£{item.price}</div>
+                      {item.price > 0 && (
+                          <div style={{fontSize:"1.5rem", paddingTop:"5px"}}>£{item.price}</div>
+                      )}
                   </Grid>
                  </Grid> 
               </div>

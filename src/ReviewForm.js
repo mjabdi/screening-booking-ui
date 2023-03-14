@@ -334,7 +334,7 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                     </span>
                     <span className={classes.infoData} style={{fontWeight:"600"}}> {getPackageName()} </span>
                   </li>
-                  {state.package && (
+                  {state.package && state.package.price > 0 && (
                       <li className={classes.li}>
                       <span className={classes.infoTitleTime}>
                         <FontAwesomeIcon
