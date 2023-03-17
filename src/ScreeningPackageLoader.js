@@ -35,7 +35,7 @@ const packages_health_men_under40 = [
   //   { price: 1499 , text: "ALLERGY ADVANCED MOT PACKAGE" },
   // ]
   const packages_allergy = [
-    { price: 350 , text: "ALEX" },
+    { price: 499 , text: "ALEX" },
     { price: 0 , text: "Skin prick and consultation".toUpperCase()},
     { price: 0 , text: "Other allergy profiles".toUpperCase()},
 
