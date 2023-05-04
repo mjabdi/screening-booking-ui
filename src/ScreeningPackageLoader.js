@@ -36,7 +36,7 @@ const packages_health_men_under40 = [
   // ]
   const packages_allergy = [
     { price: 499 , text: "ALEX" },
-    { price: 0 , text: "Skin prick and consultation".toUpperCase()},
+    // { price: 0 , text: "Skin prick and consultation".toUpperCase()},
     { price: 0 , text: "Other allergy profiles".toUpperCase()},
 
   ]

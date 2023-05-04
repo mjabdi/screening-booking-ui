@@ -118,6 +118,7 @@ export default class PaymentFormNew extends React.Component {
           >
               <span style={{fontWeight:"600", fontSize:"1.2em"}}>Pay £100</span>
            </CreditCard>
+
         </div>
       </PaymentForm>
     );
