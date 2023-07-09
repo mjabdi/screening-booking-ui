@@ -120,7 +120,11 @@ export default function PayForm() {
 
   const getPackageName = () => {
 
-    if (state.cat.key === "visa")
+    if (state.standalonePackage)
+    {
+      return state.package.text.toUpperCase()
+    }
+    else if (state.cat.key === "visa")
     {
       let destination = state.destination
       if (destination === "Other...")

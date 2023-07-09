@@ -124,92 +124,87 @@ export default function SmartEntryForm() {
 
   const getComponentFromState = (_state) => {
 
-    if (!_state.cat || _state.activeStep === 0) {
-      return <CategoriesForm />
-    }
-    else if (_state.cat.key === "health") {
-      if (_state.activeStep === 1) {
-        return <HealthGenderForm />
-      } else if (_state.activeStep === 2) {
-        return <ScreenPackagesForm />
-      }else if (_state.activeStep === 3) {
-        return <DateForm/>
-      }else if (_state.activeStep === 4) {
-        return <TimeForm/>
-      }
-      else if (_state.activeStep === 5) {
-        return <InformationForm/>
-      }
-      else if (_state.activeStep === 6) {
-        return <ReviewForm/>
-      }
-      else if (_state.activeStep === 7) {
-        return <PayForm/>
-      }
-      else if (_state.activeStep === 8) {
-        return <ResultsForm/>
-      }
+    console.log(_state)
 
+    if (_state.standalonePackage) {
+      if (_state.activeStep === 1) {
+        return <DateForm />;
+      } else if (_state.activeStep === 2) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 3) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 4) {
+        return <ReviewForm />;
+      } else if (_state.activeStep === 5) {
+        return <PayForm />;
+      } else if (_state.activeStep === 6) {
+        return <ResultsForm />;
+      }
+    } else if (!_state.cat || _state.activeStep === 0) {
+      return <CategoriesForm />;
+    } else if (_state.cat.key === "health") {
+      if (_state.activeStep === 1) {
+        return <HealthGenderForm />;
+      } else if (_state.activeStep === 2) {
+        return <ScreenPackagesForm />;
+      } else if (_state.activeStep === 3) {
+        return <DateForm />;
+      } else if (_state.activeStep === 4) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 5) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 6) {
+        return <ReviewForm />;
+      } else if (_state.activeStep === 7) {
+        return <PayForm />;
+      } else if (_state.activeStep === 8) {
+        return <ResultsForm />;
+      }
     } else if (_state.cat.key === "allergy") {
       if (_state.activeStep === 1) {
-        return <ScreenPackagesForm />
-      }else if (_state.activeStep === 2) {
-        return <DateForm/>
-      }else if (_state.activeStep === 3) {
-        return <TimeForm/>
+        return <ScreenPackagesForm />;
+      } else if (_state.activeStep === 2) {
+        return <DateForm />;
+      } else if (_state.activeStep === 3) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 4) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 5) {
+        return <ReviewForm />;
+      } else if (_state.activeStep === 6) {
+        return <PayForm />;
+      } else if (_state.activeStep === 7) {
+        return <ResultsForm />;
       }
-      else if (_state.activeStep === 4) {
-        return <InformationForm/>
-      }
-      else if (_state.activeStep === 5) {
-        return <ReviewForm/>
-      }
-      else if (_state.activeStep === 6) {
-        return <PayForm/>
-      }
-      else if (_state.activeStep === 7) {
-        return <ResultsForm/>
-      }
-    }else if (_state.cat.key === "visa") {
+    } else if (_state.cat.key === "visa") {
       if (_state.activeStep === 1) {
-        return <ChooseCountryForm />
-      }else if (_state.activeStep === 2) {
-        return <DateForm/>
-      }else if (_state.activeStep === 3) {
-        return <TimeForm/>
+        return <ChooseCountryForm />;
+      } else if (_state.activeStep === 2) {
+        return <DateForm />;
+      } else if (_state.activeStep === 3) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 4) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 5) {
+        return <ReviewForm />;
+      } else if (_state.activeStep === 6) {
+        return <PayForm />;
+      } else if (_state.activeStep === 7) {
+        return <ResultsForm />;
       }
-      else if (_state.activeStep === 4) {
-        return <InformationForm/>
-      }
-      else if (_state.activeStep === 5) {
-        return <ReviewForm/>
-      }
-      else if (_state.activeStep === 6) {
-        return <PayForm/>
-      }
-
-      else if (_state.activeStep === 7) {
-        return <ResultsForm/>
-      }
-    }    
-    else {
+    } else {
       if (_state.activeStep === 1) {
-        return <DateForm/>
-      }else if (_state.activeStep === 2) {
-        return <TimeForm/>
-      }
-      else if (_state.activeStep === 3) {
-        return <InformationForm/>
-      }
-      else if (_state.activeStep === 4) {
-        return <ReviewForm/>
-      }
-      else if (_state.activeStep === 5) {
-        return <PayForm/>
-      }
-
-      else if (_state.activeStep === 6) {
-        return <ResultsForm/>
+        return <DateForm />;
+      } else if (_state.activeStep === 2) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 3) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 4) {
+        return <ReviewForm />;
+      } else if (_state.activeStep === 5) {
+        return <PayForm />;
+      } else if (_state.activeStep === 6) {
+        return <ResultsForm />;
       }
     }
 

@@ -246,7 +246,7 @@ const getStartedClicked = (event) => {
             justify="center"
             alignItems="center"
           >
-            <Grid item item xs={10}>
+            <Grid item xs={10}>
               <Typography
                 style={{ fontWeight: "400" }}
                 variant="h6"

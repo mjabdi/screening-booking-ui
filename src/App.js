@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import BookService from './services/BookService';
 import theme from "./theme";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
-import { getCatText, getPackageByIndex } from './ScreeningPackageLoader';
+import { getCatText, getPackageByIndex, getStandalonePackageByKey } from './ScreeningPackageLoader';
 
 
 function App() {
@@ -36,6 +36,27 @@ function App() {
     }
 
     console.log(map)
+    
+    if (map.get("package") && map.get("package").length > 5)
+    {
+      const _package = getStandalonePackageByKey(map.get("package"))
+      console.log(_package)
+      if (_package)
+      {
+        setState(state => ({...state,
+          parametersMap : map, 
+          urlRead: true,
+          standalonePackage: true,
+          package : _package,
+          activeStep: 1,
+          minActiveStep : 1,
+       }))
+  
+       return
+      }
+
+
+    }
 
     const _state = {
       cat: {key: map.get("cat"), text: getCatText(map.get("cat"))},

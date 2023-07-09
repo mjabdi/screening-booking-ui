@@ -41,6 +41,14 @@ const packages_health_men_under40 = [
 
   ]
 
+  const packages_standalone = [
+    {price: 1999, text: "Longevity", key:"longevity"},
+    {price: 1999, text: "Fertility Women", key:"fertility_ women"},
+    {price: 999, text: "Fertility Men", key: "fertility_men"},
+    {price: 999, text: "Immunity", key: "immunity"},
+    {price: 1599, text: "Immunity PLUS", key: "immunity_plus"},
+    {price: 1499, text: "Fatigue", key: "fatigue"},
+  ]
 
 
   export const categories = [
@@ -61,6 +69,12 @@ const packages_health_men_under40 = [
       {
           return ''
       }
+  }
+
+  export const getStandalonePackageByKey = (key) => {
+
+    return packages_standalone.find(e => e.key === key)
+
   }
 
 
