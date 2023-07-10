@@ -35,7 +35,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { Button } from '@material-ui/core';
-import AgreementForm from './AgreementForm';
+import AgreementForm from './AgreementFormFertilityWomen';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -210,13 +210,13 @@ export default function DateForm() {
 
     <React.Fragment>
 
-      {!state.agreed && (
+      {!state.agreed_fertility && state.package?.key === "fertility_women" && (
         <React.Fragment>
             <AgreementForm/>
         </React.Fragment>
       )}
 
-      {state.agreed && (
+      {(state.agreed_fertility || state.package?.key !== "fertility_women")  && (
         <React.Fragment>
 
           <Typography variant="h5" gutterBottom className={classes.title}>

@@ -11,7 +11,7 @@ import { getCatText, getPackageByIndex, getStandalonePackageByKey } from './Scre
 
 
 function App() {
-  const [state, setState] = React.useState({activeStep : 0, smsPush: true});
+  const [state, setState] = React.useState({activeStep : 0, smsPush: true, agreed: true});
 
   
   useEffect(() => {

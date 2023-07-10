@@ -43,7 +43,7 @@ const packages_health_men_under40 = [
 
   const packages_standalone = [
     {price: 1999, text: "Longevity", key:"longevity"},
-    {price: 1999, text: "Fertility Women", key:"fertility_ women"},
+    {price: 1999, text: "Fertility Women", key:"fertility_women"},
     {price: 999, text: "Fertility Men", key: "fertility_men"},
     {price: 999, text: "Immunity", key: "immunity"},
     {price: 1599, text: "Immunity PLUS", key: "immunity_plus"},
