@@ -232,7 +232,7 @@ export default function SmartEntryForm() {
             </Grid>
 
             <Grid item>
-              {state.showNext && !state.lastStep && !state.formDone && !(state.package.key==="fertility_women" && !state.agreed_fertility) && (
+              {state.showNext && !state.lastStep && !state.formDone && !(state.package?.key==="fertility_women" && !state.agreed_fertility) && (
                   <Button endIcon={<NavigateNextIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep + 1 }))}>
                       {`Next`}
                   </Button>
