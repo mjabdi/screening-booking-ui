@@ -68,7 +68,7 @@ export default function PayForm() {
 
 
     let sqPaymentScript = document.createElement("script");
-    sqPaymentScript.src = SANDBOX ? "https://js.squareupsandbox.com/v2/paymentform" : "https://js.squareup.com/v2/paymentform";
+    sqPaymentScript.src = SANDBOX ? "https://js.squareupsandbox.com/v2/paymentform" : "https://web.squarecdn.com/v1/square.js";
     sqPaymentScript.type = "text/javascript";
     sqPaymentScript.async = false;
     sqPaymentScript.onload = () => {
