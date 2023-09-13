@@ -48,6 +48,8 @@ const packages_health_men_under40 = [
     {price: 999, text: "Immunity", key: "immunity"},
     {price: 1599, text: "Immunity PLUS", key: "immunity_plus"},
     {price: 1499, text: "Fatigue", key: "fatigue"},
+    {price: 395, text: "Everyone Basics MOT", key: "everyone_basics_mot"},
+
   ]
 
 
