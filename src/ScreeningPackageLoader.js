@@ -57,7 +57,7 @@ const packages_health_men_under40 = [
     { key: "health", text: "HEALTH SCREEENING" },
     { key: "occupational", text: "OCCUPATIONAL HEALTH / PRE EMPLOYMENT" },
     // { key: "travel", text: "TRAVEL HEALTH & VACCINATION" },
-    { key: "weight_loss", text: "Weight-Loss Injection" },
+    { key: "weight_loss", text: "Weight Loss Management" },
     { key: "visa", text: "VISA MEDICAL" },
     { key: "allergy", text: "ALLERGY SCREEENING" },
     { key: "cancer", text: "CANCER SCREEENING" },
