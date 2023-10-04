@@ -1,48 +1,47 @@
-import React, { useEffect } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import GlobalState from './GlobalState';
+import React, { useEffect } from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import GlobalState from "./GlobalState";
 
-import { Backdrop, CircularProgress, Grid } from '@material-ui/core';
-import CategoriesForm from './CategoriesForm';
-import HealthGenderForm from './HealthGenderFrom';
+import { Backdrop, CircularProgress, Grid } from "@material-ui/core";
+import CategoriesForm from "./CategoriesForm";
+import HealthGenderForm from "./HealthGenderFrom";
 
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Divider from '@material-ui/core/Divider'
-import ScreenPackagesForm from './ScreenPackagesForm';
-import DateForm from './DateForm';
-import TimeForm from './TimeForm';
-import InformationForm from './InformationForm';
-import ReviewForm from './ReviewForm';
-import ChooseCountryForm from './ChooseCountryForm';
-import BookService from './services/BookService';
-import dateformat from 'dateformat';
-import ResultsForm from './ResultsForm';
-import PayForm from './PayForm';
-
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import Divider from "@material-ui/core/Divider";
+import ScreenPackagesForm from "./ScreenPackagesForm";
+import DateForm from "./DateForm";
+import TimeForm from "./TimeForm";
+import InformationForm from "./InformationForm";
+import ReviewForm from "./ReviewForm";
+import ChooseCountryForm from "./ChooseCountryForm";
+import BookService from "./services/BookService";
+import dateformat from "dateformat";
+import ResultsForm from "./ResultsForm";
+import PayForm from "./PayForm";
+import ReviewFormNoDeposit from "./ReviewFormNoDeposit";
+import ResultsFormNoDeposit from "./ResultsFormNoDeposit";
 
 const useStyles = makeStyles((theme) => ({
-
   submitButton: {
     backgroundColor: "#d43500",
-    transition : "all 0.3s ease",
+    transition: "all 0.3s ease",
     minWidth: "100px",
-    "&:hover" : {
+    "&:hover": {
       backgroundColor: "#ed3b00",
-    }
+    },
   },
 
   backdrop: {
     zIndex: 999,
-    color: '#fff',
+    color: "#fff",
   },
-
 }));
 
 export default function SmartEntryForm() {
@@ -51,80 +50,84 @@ export default function SmartEntryForm() {
 
   const [submiting, setSubmiting] = React.useState(false);
 
-
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   const getPackageName = () => {
-
-    if (state.cat.key === "visa")
-    {
-      let destination = state.destination
-      if (destination === "Other...")
-      {
-        destination = state.destinationText
+    if (state.cat.key === "visa") {
+      let destination = state.destination;
+      if (destination === "Other...") {
+        destination = state.destinationText;
       }
-      return `${state.cat.text.toUpperCase()} ${` ( ${destination.toUpperCase()} )`}`
-    }else
-    {
-      return `${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`
+      return `${state.cat.text.toUpperCase()} ${` ( ${destination.toUpperCase()} )`}`;
+    } else {
+      return `${state.cat.text.toUpperCase()} ${
+        state.package ? ` / ${state.package.text.toUpperCase()}` : ""
+      }`;
     }
-  }
+  };
 
+  // const submitForm = () => {
+  //   var promiseArray = [];
 
-  const submitForm = () => {
-    var promiseArray = [];
+  //   setSubmiting(true);
 
-    setSubmiting(true)
+  //   BookService.getNewReference()
+  //     .then((res) => {
+  //       const ref = res.data.ref;
 
-    BookService.getNewReference().then( (res) => {
+  //       setState((state) => ({ ...state, ref: ref }));
 
-      const ref = res.data.ref;
+  //       let referrer = "/";
 
-      setState(state => ({...state, ref: ref}));
+  //       const personInfo = {
+  //         fullname: state.fullname,
+  //         email: state.email,
+  //         phone: state.phone,
+  //         notes: state.notes,
+  //         gender: state.gender,
+  //         address: state.address,
+  //         service: getPackageName(),
+  //         birthDate: state.birthDate,
+  //       };
 
-      let referrer = '/'
+  //       const promise = BookService.bookAppointment({
+  //         ...personInfo,
+  //         bookingDate: dateformat(
+  //           new Date(state.bookingDate.toUTCString().slice(0, -4)),
+  //           "yyyy-mm-dd"
+  //         ),
+  //         bookingTime: state.bookingTime,
+  //         bookingRef: ref,
+  //         referrer: referrer,
+  //       });
+  //       promiseArray.push(promise);
 
-      const personInfo = {
-        fullname: state.fullname,
-        email: state.email,
-        phone: state.phone,
-        notes: state.notes,
-        gender: state.gender,
-        address: state.address,
-        service: getPackageName(),
-        birthDate: state.birthDate
-      };
-  
-      const promise = BookService.bookAppointment({...personInfo, bookingDate:  dateformat(new Date(state.bookingDate.toUTCString().slice(0, -4)),'yyyy-mm-dd'), bookingTime: state.bookingTime, bookingRef: ref, referrer: referrer });
-      promiseArray.push(promise);
-  
-      
-      Promise.all(promiseArray).then( (values) => {
+  //       Promise.all(promiseArray)
+  //         .then((values) => {
+  //           setState((state) => ({
+  //             ...state,
+  //             finalResults: values,
+  //             activeStep: state.activeStep + 1,
+  //             formDone: true,
+  //           }));
 
-        setState(state => ({...state, finalResults: values, activeStep : state.activeStep + 1, formDone: true}));
-
-        setSubmiting(false);
-  
-      }).catch( (errs) =>
-      {
-        console.log(`Error :  ${errs}`);
-        setSubmiting(false);
-      });
-
-    }).catch( (err) =>
-    {
-      console.log(`Cannot Get REF NO. : ${err}`);
-      setSubmiting(false);
-    });;
-
-  }
-
+  //           setSubmiting(false);
+  //         })
+  //         .catch((errs) => {
+  //           console.log(`Error :  ${errs}`);
+  //           setSubmiting(false);
+  //         });
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Cannot Get REF NO. : ${err}`);
+  //       setSubmiting(false);
+  //     });
+  // };
 
   const getComponentFromState = (_state) => {
-
-    console.log(_state)
+    console.log(_state);
 
     if (_state.standalonePackage) {
       if (_state.activeStep === 1) {
@@ -192,6 +195,18 @@ export default function SmartEntryForm() {
       } else if (_state.activeStep === 7) {
         return <ResultsForm />;
       }
+    } else if (_state.cat.key === "weight_loss") {
+      if (_state.activeStep === 1) {
+        return <DateForm />;
+      } else if (_state.activeStep === 2) {
+        return <TimeForm />;
+      } else if (_state.activeStep === 3) {
+        return <InformationForm />;
+      } else if (_state.activeStep === 4) {
+        return <ReviewFormNoDeposit />;
+      } else if (_state.activeStep === 5) {
+        return <ResultsFormNoDeposit />;
+      }
     } else {
       if (_state.activeStep === 1) {
         return <DateForm />;
@@ -208,13 +223,83 @@ export default function SmartEntryForm() {
       }
     }
 
-    return null
-  }
+    return null;
+  };
+
+  const submitNoDeposit = () => {
+    var promiseArray = [];
+
+    setSubmiting(true)
+
+    BookService.getNewReference()
+      .then((res) => {
+        const ref = res.data.ref;
+
+        setState((state) => ({ ...state, ref: ref }));
+
+        let referrer = window.location.pathname;
+        if (referrer && referrer.startsWith("/id")) {
+          referrer = "/";
+        }
+
+        const personInfo = {
+          fullname: state.fullname,
+          email: state.email,
+          phone: state.phone,
+          notes: state.notes,
+          gender: state.gender,
+          address: state.address,
+          service: getPackageName(),
+          price: state.package?.price || '',
+          birthDate: state.birthDate,      
+          bookingDate: dateformat(
+            new Date(state.bookingDate.toUTCString().slice(0, -4)),
+            "yyyy-mm-dd"
+          ),
+          bookingTime: state.bookingTime,
+          bookingRef: state.bookingRef,
+          referrer: referrer,
+          smsPush: state.smsPush
+            };
+
+        const promise = BookService.bookAppointment({
+          ...personInfo,
+          bookingDate: dateformat(
+            new Date(state.bookingDate.toUTCString().slice(0, -4)),
+            "yyyy-mm-dd"
+          ),
+          bookingTime: state.bookingTime,
+          bookingRef: ref,
+          referrer: referrer,
+        });
+        promiseArray.push(promise);
+
+        Promise.all(promiseArray)
+          .then((values) => {
+            setState((state) => ({
+              ...state,
+              finalResults: values,
+              activeStep: state.activeStep + 1,
+              formDone: true,
+            }));
+
+            setSubmiting(false);
+          })
+          .catch((errs) => {
+            console.log(`Error :  ${errs}`);
+            setSubmiting(false);
+          });
+      })
+      .catch((err) => {
+        console.log(`Cannot Get REF NO. : ${err}`);
+        setSubmiting(false);
+      });
+  };
+
 
   return (
     <React.Fragment>
-      
-      <Backdrop className={classes.backdrop} open={submiting} >
+      <Backdrop className={classes.backdrop} open={submiting}>
         <CircularProgress color="inherit" />
       </Backdrop>
 
@@ -222,37 +307,111 @@ export default function SmartEntryForm() {
       {state.activeStep > 0 && !state.formDone && (
         <div style={{ marginTop: "10px" }}>
           <Divider />
-          <Grid container direction="row" justify="space-between" alignItems="center" style={{ width: "100%", paddingTop: "10px" }}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            style={{ width: "100%", paddingTop: "10px" }}
+          >
             <Grid item>
               {state.activeStep > state.minActiveStep && (
-                <Button startIcon={<NavigateBeforeIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep - 1 }))}>
-                   {`Back`}
+                <Button
+                  startIcon={<NavigateBeforeIcon />}
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    setState((state) => ({
+                      ...state,
+                      activeStep: state.activeStep - 1,
+                    }))
+                  }
+                >
+                  {`Back`}
                 </Button>
-              ) }
+              )}
             </Grid>
 
             <Grid item>
-              {state.showNext && !state.lastStep && !state.formDone && !(state.package?.key==="fertility_women" && !state.agreed_fertility) && (
-                  <Button endIcon={<NavigateNextIcon />} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep + 1 }))}>
-                      {`Next`}
+              {state.showNext &&
+                !state.lastStep &&
+                !state.formDone &&
+                !(
+                  state.package?.key === "fertility_women" &&
+                  !state.agreed_fertility
+                ) && (
+                  <Button
+                    endIcon={<NavigateNextIcon />}
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      setState((state) => ({
+                        ...state,
+                        activeStep: state.activeStep + 1,
+                      }))
+                    }
+                  >
+                    {`Next`}
                   </Button>
-              )}
+                )}
 
-              {state.showNext && state.lastStep && !state.formDone && (
-                  <Button className={classes.submitButton} variant="contained" color="primary" onClick={() => setState(state => ({ ...state, activeStep: state.activeStep + 1 }))}>
-                      {`Proceed To Payment`}
+              {state.showNext &&
+                state.lastStep &&
+                !state.formDone &&
+                !(state.cat.key === "weight_loss") && (
+                  <Button
+                    className={classes.submitButton}
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      setState((state) => ({
+                        ...state,
+                        activeStep: state.activeStep + 1,
+                      }))
+                    }
+                  >
+                    {`Proceed To Payment`}
                   </Button>
-              )}
+                )}
 
+              {state.showNext &&
+                state.lastStep &&
+                !state.formDone &&
+                state.cat.key === "weight_loss" && (
+                  <Button
+                    className={classes.submitButton}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => submitNoDeposit()}
+                  >
+                    {`Submit`}
+                  </Button>
+                )}
             </Grid>
-
           </Grid>
-
-
-
         </div>
-
       )}
+
+      {/* <Backdrop className={classes.backdrop} open={submiting}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item>
+            <CircularProgress color="inherit" />
+          </Grid>
+          <Grid item>
+            <span style={{ textAlign: "center", color: "#fff" }}>
+              {" "}
+              Please wait ...{" "}
+            </span>
+          </Grid>
+        </Grid>
+      </Backdrop> */}
+
     </React.Fragment>
   );
 }
