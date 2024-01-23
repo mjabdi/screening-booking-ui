@@ -169,10 +169,6 @@ export default function DateForm() {
 
   const checkFullyBooked = (date) => {
     var result = false;
-
-    if (getDay(date) === 0 || getDay(date) === 6)
-      return true
-
     const today = new Date()
     // const twoDaysAfter = new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000)
 
