@@ -7,11 +7,13 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import GlobalState from "./GlobalState";
-
+import klarnaImage from "./images/klarna.png";
+import Alert from "@material-ui/lab/Alert";
 import { Backdrop, CircularProgress, Grid } from "@material-ui/core";
 import CategoriesForm from "./CategoriesForm";
 import HealthGenderForm from "./HealthGenderFrom";
-
+import KlarnaPaymentButton from "./KlarnaComponent";
+import PaymentService from "./services/PaymentService";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Divider from "@material-ui/core/Divider";
@@ -37,7 +39,54 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#ed3b00",
     },
   },
-
+  submitButton2: {
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    fontSize: "12px",
+    transition: "all 0.3s ease",
+    minWidth: "100px",
+    boxShadow: "none",
+    textShadow: "none",
+    border: "1.5px solid #296AB7",
+    borderRadius: "100rem",
+    flexGrow: 1,
+    "&:hover": {
+      backgroundColor: "#ffffff",
+    },
+  },
+  submitButton3: {
+    backgroundColor: "#296AB7",
+    color: "#ffffff",
+    fontSize: "12px",
+    transition: "all 0.3s ease",
+    minWidth: "100px",
+    boxShadow: "none",
+    textShadow: "none",
+    borderRadius: "100rem",
+    flexGrow: 1,
+    "&:hover": {
+      backgroundColor: "#296AB7",
+    },
+  },
+  submitButton4: {
+    backgroundColor: "#FFA8CD",
+    color: "#000000",
+    fontSize: "12px",
+    transition: "all 0.3s ease",
+    minWidth: "100px",
+    boxShadow: "none",
+    textShadow: "none",
+    borderRadius: "100rem",
+    flexGrow: 1,
+    "&>.MuiButton-label": {
+      display: "flex",
+      gap: "6px",
+      alignItems: "center",
+    },
+    "&:hover": {
+      backgroundColor: "#FFA8CD",
+    },
+  },
   backdrop: {
     zIndex: 999,
     color: "#fff",
@@ -52,6 +101,66 @@ export default function SmartEntryForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // window.Klarna.Payments.Buttons.init({
+    //   client_id:
+    //     "klarna_live_client_MVhxRjNHQSVGJFZFek1tVThKV1RxbCVBb2l1N2wvclosZWU3MWRmNGEtYTE4Ny00ZjMzLWE3MmQtMTJkZGZmODkzYzZiLDEsSFE4UzcybWxYZGRGekJNM1NTTXc5ZnFkL01JOTlNZytNR0RRZXRnQTdLcz0",
+    // }).load(
+    //   {
+    //     container: "#container-klarna",
+    //     theme: "default",
+    //     shape: "default",
+    //     on_click: (authorize) => {
+    //       // Here you should invoke authorize with the order payload.
+    //       authorize(
+    //         { collect_shipping_address: true },
+    //         {
+    //           purchase_country: "GB",
+    //           purchase_currency: "GBP",
+    //           locale: "en-GB",
+    //           billing_address: {
+    //             given_name: "Test",
+    //             family_name: "Person-uk",
+    //             email: "customer@email.uk",
+    //             street_address: "13 New Burlington St",
+    //             street_address2: "Apt 214",
+    //             postal_code: "W13 3BG",
+    //             city: "London",
+    //             region: "",
+    //             phone: "01895808221",
+    //             country: "GB",
+    //           },
+    //           order_amount: 1000,
+    //           order_tax_amount: 0,
+    //           order_lines: [
+    //             {
+    //               type: "physical",
+    //               reference: "19-402",
+    //               name: "Battery Power Pack",
+    //               quantity: 1,
+    //               unit_price: 1000,
+    //               tax_rate: 0,
+    //               total_amount: 1000,
+    //               total_discount_amount: 0,
+    //               total_tax_amount: 0,
+    //               product_url: "https://www.estore.com/products/f2a8d7e34",
+    //               image_url: "https://www.exampleobjects.com/logo.png",
+    //             },
+    //           ],
+    //           //     customer: {
+    //           //     date_of_birth: "1970-01-01",
+    //           // },
+    //         }, // order payload
+    //         (result) => {
+    //           // The result, if successful contains the authorization_token
+    //         }
+    //       );
+    //     },
+    //   },
+    //   function load_callback(loadResult) {
+    //     // Here you can handle the result of loading the button
+    //   }
+    // );
+
   }, []);
 
   const getPackageName = () => {
@@ -225,6 +334,7 @@ export default function SmartEntryForm() {
 
     return null;
   };
+  
 
   const submitNoDeposit = () => {
     var promiseArray = [];
@@ -296,6 +406,35 @@ export default function SmartEntryForm() {
       });
   };
 
+  const klarnaClicked = async() => {
+    const payload = {
+      purchase_country: "GB",
+      purchase_currency: "GBP",
+      locale: "en-GB",
+      order_amount: state.package.price * 100,
+      order_tax_amount: 0,
+      order_lines: [
+        {
+          name: state.package.text,
+          quantity: 1,
+          unit_price: state.package.price * 100,
+          total_amount: state.package.price * 100,
+        },
+      ],
+      merchant_urls: {
+        // push: "https://test.travelpcrtest.com/api/push",
+        // validation: "https://test.travelpcrtest.com/api/screening/payment/dopaymentusingklarna",
+      },
+    };
+    const result = await PaymentService.createOrderOnKlarna(payload)
+    console.log(result)
+    // setState((state) => ({
+    //   ...state,
+    //   paymentMethod: "klarna",
+    //   activeStep: state.activeStep + 1,
+    // }));
+  }
+    
 
   return (
     <React.Fragment>
@@ -306,6 +445,93 @@ export default function SmartEntryForm() {
       {getComponentFromState(state)}
       {state.activeStep > 0 && !state.formDone && (
         <div style={{ marginTop: "10px" }}>
+          <div>
+            {state.cat.key === "health" && state.lastStep && (
+              <Alert severity="info" icon={false}>
+                <div
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: "500",
+                    marginBottom: ".5rem",
+                  }}
+                >
+                  In order to secure your appointment you can either:
+                </div>
+                <div
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: "400",
+                    textAlign: "start",
+                  }}
+                >
+                  <div>
+                    - Place a <b style={{ color: "red" }}>£100</b> deposit to
+                    secure your appointment
+                  </div>
+                  <div>- Spread the cost and pay by instalments via Klarna</div>
+                  <div>- Pay the full amount online </div>
+                </div>
+              </Alert>
+            )}
+            {state.showNext &&
+              state.lastStep &&
+              !state.formDone &&
+              state.cat.key === "health" && (
+                <div
+                  style={{
+                    marginTop: "1rem",
+                    marginBottom: "1rem",
+                    display: "flex",
+                    gap: "1rem",
+                  }}
+                >
+                  <Button
+                    className={classes.submitButton2}
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      setState((state) => ({
+                        ...state,
+                        paymentMethod: "deposit",
+                        activeStep: state.activeStep + 1,
+                      }))
+                    }
+                  >
+                    {"PAY £100 DEPOSIT ONLINE"}
+                  </Button>
+                  <Button
+                    className={classes.submitButton3}
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      setState((state) => ({
+                        ...state,
+                        paymentMethod: "full",
+                        activeStep: state.activeStep + 1,
+                      }))
+                    }
+                  >
+                    {"PAY FULL AMOUNT ONLINE"}
+                  </Button>
+                  {/* <Button
+                    className={classes.submitButton4}
+                    variant="contained"
+                    onClick={() =>
+                      klarnaClicked()
+                    }
+                  >
+                    <div>{"PAY BY INSTALMENTS ONLINE"} </div>
+                    <img
+                      style={{ height: ".8rem" }}
+                      src={klarnaImage}
+                      alt="klarna"
+                    />
+                  </Button> */}
+                  <KlarnaPaymentButton />
+                </div>
+              )}
+          </div>
+
           <Divider />
           <Grid
             container
@@ -323,6 +549,7 @@ export default function SmartEntryForm() {
                   onClick={() =>
                     setState((state) => ({
                       ...state,
+                      paymentMethod: "deposit",
                       activeStep: state.activeStep - 1,
                     }))
                   }
@@ -358,7 +585,8 @@ export default function SmartEntryForm() {
               {state.showNext &&
                 state.lastStep &&
                 !state.formDone &&
-                !(state.cat.key === "weight_loss") && (
+                !(state.cat.key === "weight_loss") &&
+                !(state.cat.key === "health") && (
                   <Button
                     className={classes.submitButton}
                     variant="contained"
@@ -411,7 +639,6 @@ export default function SmartEntryForm() {
           </Grid>
         </Grid>
       </Backdrop> */}
-
     </React.Fragment>
   );
 }

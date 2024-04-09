@@ -17,6 +17,7 @@ export default class PaymentFormNew extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      method: props.method,
       personInfo: props.personInfo,
       errorMessages: [],
     };
@@ -65,6 +66,9 @@ export default class PaymentFormNew extends React.Component {
         try {
           this.props.onStart();
           const result = await PaymentService.doPayment({
+            deposit: this.state.method === "full"
+          ? this.state.personInfo.price
+          : 100,
             nonce: token.token,
             token: buyer.token,
             personInfo: this.state.personInfo,
@@ -80,7 +84,10 @@ export default class PaymentFormNew extends React.Component {
 
   createVerificationDetails() {
     return {
-      amount: "100.00",
+      amount:
+        this.state.method === "full"
+          ? this.state.personInfo.price.toFixed(2)
+          : "100.00",
       currencyCode: "GBP",
       intent: "CHARGE",
       billingContact: {
@@ -93,6 +100,7 @@ export default class PaymentFormNew extends React.Component {
 
   render() {
     return (
+      <React.Fragment>
       <PaymentForm
         applicationId={SANDBOX ? SANDBOX_APPLICATION_ID : LIVE_APPLICATION_ID}
         locationId={SANDBOX ? SANDBOX_LOCATION_ID : LIVE_LOCATION_ID}
@@ -105,22 +113,27 @@ export default class PaymentFormNew extends React.Component {
         createVerificationDetails={this.createVerificationDetails}
       >
         <div style={{ padding: "20px 10px" }}>
-          <CreditCard 
-           buttonProps={{
-            css: {
-              backgroundColor: '#b30c1d',
-              color: '#fff',
-              '&:hover': {
-                backgroundColor: '#de071d',
+          <CreditCard
+            buttonProps={{
+              css: {
+                backgroundColor: "#b30c1d",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#de071d",
+                },
               },
-            },
-          }}
+            }}
           >
-              <span style={{fontWeight:"600", fontSize:"1.2em"}}>Pay £100</span>
-           </CreditCard>
-
+            <span style={{ fontWeight: "600", fontSize: "1.2em" }}>
+              Pay £
+              {this.state.method === "full"
+                ? this.state.personInfo.price
+                : "100"}
+            </span>
+          </CreditCard>
         </div>
       </PaymentForm>
+      </React.Fragment>
     );
   }
 }

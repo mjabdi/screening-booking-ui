@@ -186,6 +186,7 @@ export default function PayForm() {
           <div className={classes.boxTime}>
           <div className={classes.boxTitle}>Card Info</div>
             <PaymentForm
+              method={state.paymentMethod}
               personInfo={personInfo}
               onStart={onStart}
               onComplete={onComplete}

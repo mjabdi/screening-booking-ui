@@ -249,6 +249,15 @@ export default function ReviewForm() {
       return `${state.cat.text.toUpperCase()} ${state.package ? ` / ${state.package.text.toUpperCase()}` : ''}`
     }
   }
+    const servicesNeedConfirmation = [
+      "HEALTH SCREENING  / WOMEN'S HEALTH ELITE MOT",
+      "HEALTH SCREENING  / HEALTH ADVANCED PLUS MOT",
+      "HEALTH SCREENING  / HEALTH ELITE MOT",
+      "HEALTH SCREENING  / MEN'S HEALTH ELITE MOT",
+    ];
+    const isConfirmationNeeded = servicesNeedConfirmation.includes(
+      getPackageName()
+    );
 
   
   return (
@@ -258,22 +267,34 @@ export default function ReviewForm() {
       </Typography>
 
       <Fade down>
-        <div>
-          <Alert
-            severity="info"
-            style={{
-              marginBottom: "15px",
-              fontSize: "0.95rem",
-              lineHeight: "1.5rem",
-              textAlign: "justify",
-            }}
-          >
-            Thank you for making your booking. As we need to arrange some of your investigations with our partner hospitals, the date and time you have selected <span style={{fontWeight:"700", color:"red"}}> is not yet guaranteed </span> and might need to be re-arranged. 
-Whilst the vast majority of patients are seen at their requested time, please keep an eye on your email/phone as we will call and email you if we have needed to re-arrange your appointment.
-        </Alert>
-        </div>
+        <React.Fragment>
+          {isConfirmationNeeded && (
+            <div>
+              <Alert
+                severity="info"
+                style={{
+                  marginBottom: "15px",
+                  fontSize: "0.95rem",
+                  lineHeight: "1.5rem",
+                  textAlign: "justify",
+                }}
+              >
+                Thank you for making your booking. As we need to arrange some of
+                your investigations with our partner hospitals, the date and
+                time you have selected{" "}
+                <span style={{ fontWeight: "700", color: "red" }}>
+                  {" "}
+                  is not yet guaranteed{" "}
+                </span>{" "}
+                and might need to be re-arranged. Whilst the vast majority of
+                patients are seen at their requested time, please keep an eye on
+                your email/phone as we will call and email you if we have needed
+                to re-arrange your appointment.
+              </Alert>
+            </div>
+          )}
+        </React.Fragment>
       </Fade>
-
 
       <Grid
         container
@@ -336,10 +357,16 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                       />
                       Package:
                     </span>
-                    <span className={classes.infoData} style={{fontWeight:"600"}}> {getPackageName()} </span>
+                    <span
+                      className={classes.infoData}
+                      style={{ fontWeight: "600" }}
+                    >
+                      {" "}
+                      {getPackageName()}{" "}
+                    </span>
                   </li>
                   {state.package && state.package.price > 0 && (
-                      <li className={classes.li}>
+                    <li className={classes.li}>
                       <span className={classes.infoTitleTime}>
                         <FontAwesomeIcon
                           icon={faPoundSign}
@@ -347,10 +374,12 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                         />
                         Price:
                       </span>
-                      <span className={classes.infoDataPrice}> £{state.package.price || '-'} </span>
+                      <span className={classes.infoDataPrice}>
+                        {" "}
+                        £{state.package.price || "-"}{" "}
+                      </span>
                     </li>
                   )}
-
                 </ul>
               </div>
             </Grid>
@@ -378,12 +407,18 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                   </li>
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Date of Birth</span>
-                    <span className={classes.infoData}> {FormatDateFromString(state.birthDate)} </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {FormatDateFromString(state.birthDate)}{" "}
+                    </span>
                   </li>
 
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Gender</span>
-                    <span className={classes.infoData}> {state.gender === "F" ? 'Female' : 'Male' } </span>
+                    <span className={classes.infoData}>
+                      {" "}
+                      {state.gender === "F" ? "Female" : "Male"}{" "}
+                    </span>
                   </li>
 
                   <li className={classes.li}>
@@ -391,11 +426,15 @@ Whilst the vast majority of patients are seen at their requested time, please ke
                     <span className={classes.infoData}> {state.address} </span>
                   </li>
 
-
-
                   <li className={classes.li}>
                     <span className={classes.infoTitle}>Notes</span>
-                    <span className={classes.infoData} style={{color:"#777"}}> {state.notes || '-'} </span>
+                    <span
+                      className={classes.infoData}
+                      style={{ color: "#777" }}
+                    >
+                      {" "}
+                      {state.notes || "-"}{" "}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -403,7 +442,7 @@ Whilst the vast majority of patients are seen at their requested time, please ke
           </div>
         </Fade>
         <div className={classes.terms}>
-          By clicking on "PROCEED TO PAYMENT" button you are agreeing with our{" "}
+          You have read and agree to our&nbsp;
           <a
             className={classes.link}
             target="_blank"
@@ -411,9 +450,7 @@ Whilst the vast majority of patients are seen at their requested time, please ke
           >
             terms and condition
           </a>
-          &nbsp;
-          and 
-          &nbsp;
+          &nbsp; and &nbsp;
           <a
             className={classes.link}
             target="_blank"
@@ -421,14 +458,6 @@ Whilst the vast majority of patients are seen at their requested time, please ke
           >
             consent to treatment policies.
           </a>
-        </div>
-
-        <div>
-          <Alert severity="info">
-           <div style={{fontSize:"1rem", fontWeight:"500"}}>
-            You need to pay <b style={{color:"red"}}>£100</b> deposit to secure your appointment.
-            </div>
-          </Alert>
         </div>
 
         {/* <div style={{textAlign:"left", color: "#111", marginLeft:"10px"}}>
