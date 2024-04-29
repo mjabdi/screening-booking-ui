@@ -36,7 +36,7 @@ const KlarnaPaymentButton = () => {
     window.scrollTo(0, 0);
     window.Klarna.Payments.Buttons.init({
       client_id:
-      "klarna_test_client_aD9TdzY2dFJqYWR0OEpIa00qUipnYVYtODNMWFAtQS0sMjEwNTg0YmYtOTRmMC00NDgwLTkwYTktNjlkMDVhOTM4MTJjLDEsTjBHdXgwbVlUYmJhMm5FdGVGbVBPYUlRTktLY0c4K2ZRdjE5TWtTeWk4QT0",
+        "klarna_test_client_aD9TdzY2dFJqYWR0OEpIa00qUipnYVYtODNMWFAtQS0sMjEwNTg0YmYtOTRmMC00NDgwLTkwYTktNjlkMDVhOTM4MTJjLDEsTjBHdXgwbVlUYmJhMm5FdGVGbVBPYUlRTktLY0c4K2ZRdjE5TWtTeWk4QT0",
         // "klarna_live_client_MVhxRjNHQSVGJFZFek1tVThKV1RxbCVBb2l1N2wvclosZWU3MWRmNGEtYTE4Ny00ZjMzLWE3MmQtMTJkZGZmODkzYzZiLDEsSFE4UzcybWxYZGRGekJNM1NTTXc5ZnFkL01JOTlNZytNR0RRZXRnQTdLcz0",
     }).load(
       {
@@ -49,26 +49,26 @@ const KlarnaPaymentButton = () => {
             orderDetails,
             async (result) => {
               // The result, if successful contains the authorization_token
-              console.log('result',result)
+              console.log("result", result);
 
-                const result2 = await PaymentService.createOrderOnKlarna(
-                  result.authorization_token,
-                  { personInfo: personInfo(), payment: orderDetails }
-                );
-                console.log(result2, result2.data);
-                    setState((state) => ({
-                      ...state,
-                      finalResults: [result2],
-                      activeStep: state.activeStep + 2,
-                      formDone: true,
-                    }));
+              const result2 = await PaymentService.createOrderOnKlarna(
+                result.authorization_token,
+                { personInfo: personInfo(), payment: orderDetails }
+              );
+              console.log(result2, result2.data);
+              setState((state) => ({
+                ...state,
+                finalResults: [result2],
+                activeStep: state.activeStep + 2,
+                formDone: true,
+              }));
             }
           );
         },
       },
       function load_callback(loadResult) {
         // Here you can handle the result of loading the button
-        console.log('loadResult', loadResult);
+        console.log("loadResult", loadResult);
       }
     );
      

@@ -414,7 +414,7 @@ export default function ReviewForm() {
                   </li>
 
                   <li className={classes.li}>
-                    <span className={classes.infoTitle}>Gender</span>
+                    <span className={classes.infoTitle}>Sex</span>
                     <span className={classes.infoData}>
                       {" "}
                       {state.gender === "F" ? "Female" : "Male"}{" "}

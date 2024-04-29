@@ -101,7 +101,7 @@ export default function HealthGenderForm() {
       setError(null)
     }else{
       setState(state => ({...state, age: age}))
-      setError("Please Select Gender")
+      setError("Please Select Sex")
     }
   }
 
